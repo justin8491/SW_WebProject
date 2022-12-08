@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+
+#main {
+	background: rgba(0, 0, 0, 0.3) no-repeat 50%;
+	margin: 0;
+	padding: 0;
+	font-family: 'Jua', sans-serif;
+}
+
+* {
+	list-style: none;
+}
+
+#header {
+	font-size : 15rem;
+	margin-top:8rem;
+	text-align: center;
+	margin-bottom: 3rem;
+}
+
+#container {
+	display: flex;
+	flex-direction: column;
+}
+
+#loginForm__container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#id_box, #pwd_box {
+	width: 20rem;
+}
+
+#btn_box {
+	margin-top: 2rem;
+	display: flex;
+	justify-content: center;
+	
+}
+
+#btn_box input {
+	width: 7rem;
+	height: 3rem;
+}
+
+#btn_box > #login {
+	border-bottom-left-radius: 25%;
+	border-style: none;
+}
+
+#btn_box > #login:hover {
+	color: rgb(218, 213, 213);
+	background-color: rgb(68, 67, 67);
+}
+
+#btn_box > #signUp {
+	border-top-right-radius: 25%;
+	border-style: none;
+}
+
+#btn_box > #signUp:hover {
+	color: rgb(218, 213, 213);
+	background-color: rgb(68, 67, 67);
+}
+
+
+footer {
+	display: flex;
+	flex-direction: column;
+	color: gray;
+	margin-top: 23rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}

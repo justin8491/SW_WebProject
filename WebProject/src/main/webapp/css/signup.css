@@ -1,0 +1,184 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+i {
+	color: green;
+}
+
+* {
+	list-style: none;
+}
+
+/*flex 가로 정렬*/
+.sort_row {
+	display: flex;
+	flex-direction: row;
+}
+
+.sort_column {
+	display: flex;
+	flex-direction: column;
+}
+
+#header h1 {
+	text-align: center;
+	font-size: 5rem;
+}
+
+#information {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 3rem;
+	margin-left: 3rem;
+}
+
+/*폼 시작*/
+#information__form {
+	margin-left: 3rem;
+}
+
+
+#information__form-list{
+	display: flex;
+	flex-direction: column;
+}
+
+/*폼 div 가로 정렬*/
+#information__form-list div {
+	display: flex;
+	padding-top: 1rem;
+	padding-bottom: 0.5rem;
+}
+
+/*인풋 상자 사이즈*/
+
+#name_check {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#name_check input{
+	width: 16rem;
+	height: 2rem;
+	font-size: 1rem;
+	margin-right: 1rem;
+}
+
+#id_check {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#id_check input{
+	width: 16rem;
+	height: 2rem;
+	font-size: 1rem;
+	margin-right: 1rem;
+}
+
+#pwd_check {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#pwd_check input:first-child {
+	margin-right : 1rem;
+	height: 2rem;
+}
+
+#pwd_check input{
+	width: 12rem;
+	height: 2rem;
+	font-size: 1rem;
+	margin-right: 1rem;
+}
+
+#phone_check {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#phone_check select {
+	width: 6rem;
+	height: 2rem;
+	margin-right: 1rem;
+	font-size: 1rem;
+	text-align: center;
+}
+
+#phone_check input {
+	width: 6rem;
+	height: 1.5rem;
+	font-size: 1rem;
+	text-align: center;
+	margin-right: 1rem;
+	margin-left: 1rem;
+}
+
+#email_check {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#email_check input{
+	width: 8rem;
+	height: 1.5rem;
+	font-size: 1rem;
+	margin-right: 1rem;
+}
+
+#email_check select {
+	width: 8rem;
+	height: 2rem;
+	font-size: 1rem;
+	margin-right: 1rem;
+	margin-left: 1rem;
+}
+
+
+
+
+#infoImgs {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	box-sizing: content-box;
+}
+
+#infoImg {
+	margin-top: 1rem;
+	margin-left: 1rem;
+	width: 144px;
+	height: 34px;
+	margin-bottom: 18rem;
+}
+
+#accept_check {
+	margin-top: 0.5rem;
+}
+
+#btn_check {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#btn_check input {
+	margin-top: 5rem;
+	margin-right: 1.5rem;
+	width: 12rem;
+	height: 3rem;
+}

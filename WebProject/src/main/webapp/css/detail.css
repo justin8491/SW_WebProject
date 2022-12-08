@@ -1,0 +1,68 @@
+@charset "UTF-8";
+/* default value */
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
+* {
+margin: 0;
+padding: 0;
+list-style: none;
+text-decoration: none;
+font-family: 'Jua', sans-serif;
+}
+
+#infoImg {
+	display: flex;
+    justify-content: center;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    margin-left: 18%;
+    margin-bottom: 3rem;
+    margin-top: 5rem;
+}
+
+#userInfo {
+	
+	display: flex;
+	flex-direction: column;
+}
+
+#userInfo li {
+	display: flex;
+	flex-direction: row;
+	margin-left: 30%;	
+}
+
+#userInfo li label, #userInfo li p {
+	font-size: 1.8rem;
+	margin-right: 3rem;
+}
+
+#userInfo li p {
+	background-color: #ffffff;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	border-radius: 15px;
+}
+
+#userInfo li label {
+	width:165px;
+}
+
+#btn_box {
+	display: flex;
+	justify-content: center;
+	padding: 3rem;
+}
+
+#btn_box button {
+	padding: 1.5rem 3rem 1.5rem 3rem; 
+}
+
+#btn_box button:first-child {
+	margin-right: 1rem;
+}
+
+#btn_box button:last-child {
+	margin-left: 1rem;
+}
