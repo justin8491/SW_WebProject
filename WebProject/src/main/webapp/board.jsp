@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!DOCTYPE html>
+<%
+session = request.getSession();
+%>
 <html>
 <head>
 <meta charset="UTF-8" />
@@ -12,16 +17,21 @@
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous" />
 
-<link rel="stylesheet" href="./css/detail.css" />
-<script type="text/javascript" src="./js/detail.js" defer></script>
+<link rel="stylesheet" href="./css/board.css" />
+<script type="text/javascript" src="./js/board.js" defer></script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap")
+	;
+</style>
 </head>
 <body style="background-color: rgba(0, 0, 0, 0.2)">
 	<nav class="navbar bg-light fixed-top"
 		style="padding-top: 0; padding-bottom: 0">
 		<div class="container-fluid"
 			style="background-color: rgba(0, 0, 0, 0.7)">
-			<a class="navbar-brand" href="main.jsp?id=${id}" style="font-size: 2rem">Developer</a>
-			<a class="navbar-brand" href="board" style="font-size: 1.5rem">게시판</a> <a
+			<a class="navbar-brand" href="main.jsp?id=${id}"
+				style="font-size: 2rem">Developer</a> <a class="navbar-brand"
+				href="board" style="font-size: 1.5rem">게시판</a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem">채팅</a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
@@ -29,10 +39,11 @@
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a>
 			<!-- 유저 세션 닉네임 -->
-			<a class="navbar-brand" href="detail" style="font-size: 1.5rem"> <%
- session = request.getSession();
- out.print(session.getAttribute("id"));
- %> 님
+			<a class="navbar-brand" href="detail" style="font-size: 1.5rem">
+				<%
+				session = request.getSession();
+				out.print(session.getAttribute("id"));
+				%> 님
 			</a>
 
 			<button class="navbar-toggler" type="button"
@@ -45,16 +56,16 @@
 				class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
 				aria-labelledby="offcanvasNavbarLabel">
 				<div class="offcanvas-header">
-					<h5 style="color: black" class="offcanvas-title"
-						id="offcanvasNavbarLabel">Menu Bar</h5>
+					<h5 class="offcanvas-title" id="sideBarLabel">Menu Bar</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
 						aria-label="Close"></button>
 				</div>
 				<div class="offcanvas-body">
-					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+					<ul id="sideBar"
+						class="navbar-nav justify-content-end flex-grow-1 pe-3">
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href="main.jsp?id=${id}">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Boards</a>
+						<li class="nav-item"><a class="nav-link" href="board">Boards</a>
 						</li>
 						<li class="nav-item"><a class="nav-link" href="#">Talk</a></li>
 						<li class="nav-item"><a class="nav-link" id="logout"
@@ -71,59 +82,34 @@
 		</div>
 	</nav>
 
-	<!-- 상세페이지 시작 -->
-	<section id="container">
-		<ul id="userInfo">
-			<li id="img_box"><img id="infoImg" alt=""
-				src="./images/info.jpg"></li>
-			<li id="id_box"><label>아이디 :</label>
-				<p>
-					<%
-					
-					out.print(session.getAttribute("id"));
-					%>
-				</p></li>
-			<li id="pwd_box"><label>비밀번호 :</label>
-				<p>
-					<%
-					out.print(session.getAttribute("pwd"));
-					%>
-				</p></li>
-			<li id="name_box"><label>이름 :</label>
-				<p>
-					<%
-					
-					out.print(session.getAttribute("name"));
-					%>
-				</p></li>
-			<li id="phone_box"><label>핸드폰 번호 :</label>
-				<p>
-					<%
-					
-					out.print(session.getAttribute("phone"));
-					%>
-				</p></li>
-			<li id="email_box"><label>이메일 :</label>
-				<p>
-					<%
-					
-					out.print(session.getAttribute("email"));
-					%>
-				</p></li>
-			<li id="createdate_box"><label>회원 가입일 :</label>
-				<p>
-					<%
-					/* session = request.getSession(); */
-					out.print(session.getAttribute("createdate"));
-					%>
-				</p></li>
-		</ul>
-		<div id="btn_box">
-			<button id="updateBtn" type="button" class="btn btn-primary">회원정보 수정</button>
-			<button id="deleteBtn" type="button" class="btn btn-danger">회원 탈퇴</button>
-		</div>
-	</section>
-
+	<table id="boardTable">
+		<tr align="center">
+			<td><b>글 번호</b></td>
+			<td><b>카테고리</b></td>
+			<td><b>글 제목</b></td>
+			<td><b>작성자</b></td>
+			<td><b>작성일</b></td>
+		</tr>
+		<c:choose>
+			<c:when test="${ empty boardList}"></c:when>
+		</c:choose>
+		<c:choose>
+			<c:when test="${!empty boardList}">
+				<c:forEach var="b" items="${boardList}">
+					<tr align="center">
+						<td>${b.boardNO}</td>
+						<td>${b.category}</td>
+						<td>${b.title}</td>
+						<td>${b.id}</td>
+						<td>${b.writeDate}</td>
+					</tr>
+				</c:forEach>
+			</c:when>
+		</c:choose>
+	</table>
+	<div id="btn" class="d-grid gap-2 d-md-flex justify-content-md-end">
+		<a class="btn btn-primary me-md-2" role="button" id="write-article">글쓰기</a>
+	</div>
 </body>
 <!-- JavaScript Bundle with Popper -->
 <script

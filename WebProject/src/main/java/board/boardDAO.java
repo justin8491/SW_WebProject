@@ -30,27 +30,27 @@ public class boardDAO {
 		}
 	}
 	
-	public List<MemberBean> listMember() {
-		List<MemberBean> list = new ArrayList<>();
+	public List<boardVO> listboard() {
+		List<boardVO> list = new ArrayList<>();
 		try {
 			// connDB();
 			conn = dataFactory.getConnection();
-			String query = "select * from t_member ";
-			query += "order by createDate desc";
+			String query = "select * from t_board ";
+			query += "order by writeDate desc";
 			System.out.println("prepareStatememt: " + query);
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				MemberBean member = new MemberBean(
-						rs.getString("id"),	
-						rs.getString("pwd"),	
-						rs.getString("name"),
-						rs.getString("phone"),
-						rs.getString("email"),
-						rs.getString("isexist"),
-						rs.getDate("createDate"));
-				System.out.println(member);
-				list.add(member);
+				boardVO board = new boardVO(
+						rs.getString("boardNO"),	
+						rs.getString("category"),	
+						rs.getString("title"),
+						rs.getString("content"),
+						rs.getString("id"),
+						rs.getDate("writeDate"));
+						
+				System.out.println(board);
+				list.add(board);
 			}
 			rs.close();
 			pstmt.close();
