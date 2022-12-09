@@ -21,7 +21,7 @@
 		<div class="container-fluid"
 			style="background-color: rgba(0, 0, 0, 0.7)">
 			<a class="navbar-brand" href="main.jsp?id=${id}" style="font-size: 2rem">Developer</a>
-			<a class="navbar-brand" href="board" style="font-size: 1.5rem">게시판</a> <a
+			<a class="navbar-brand" href="boardList" style="font-size: 1.5rem">게시판</a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem">채팅</a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
@@ -54,7 +54,7 @@
 					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href="main.jsp?id=${id}">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Boards</a>
+						<li class="nav-item"><a class="nav-link" href="boardList">Boards</a>
 						</li>
 						<li class="nav-item"><a class="nav-link" href="#">Talk</a></li>
 						<li class="nav-item"><a class="nav-link" id="logout"

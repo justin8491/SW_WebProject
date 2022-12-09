@@ -4,23 +4,27 @@ import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
-@Data
-public class boardVO {
+@Setter
+@Getter
+public class BoardVO {
 	
-	private String boardNO;
+	private int boardNO;
 	private String category;
 	private String title;
 	private String content;
 	private String id;
 	private Date writeDate;
+	private String isExist;
 	
 	
-	public boardVO() {}
+	public BoardVO() {}
 
 
-	public boardVO(String category, String title, String content, String id) {
+	public BoardVO(String category, String title, String content, String id) {
 		super();
 		this.category = category;
 		this.title = title;

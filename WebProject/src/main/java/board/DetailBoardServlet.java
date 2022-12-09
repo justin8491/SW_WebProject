@@ -13,14 +13,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import member.MemberBean;
-import member.MemberDAO;
 
 /**
  * Servlet implementation class ShowMember
  */
-@WebServlet("/board")
-public class ListBoardServlet extends HttpServlet {
+@WebServlet("/boardDetail")
+public class DetailBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -30,17 +28,28 @@ public class ListBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
-		String id = "";
-		boardDAO dao = new boardDAO();
-		List<boardVO> boardList = dao.listboard();
+		String boardNO = request.getParameter("boardNO");
+		Boolean isLogon = false;
 		HttpSession session = request.getSession(false);
-		request.setAttribute("boardList", boardList);
-		RequestDispatcher dispatch = request.getRequestDispatcher("board.jsp");
-		dispatch.forward(request, response);
-		
-		
-		
-		
-		
+
+		if (session != null) {
+			isLogon = (Boolean) session.getAttribute("isLogon");
+			if (isLogon == true) {
+				
+				BoardDAO dao = new BoardDAO();
+				BoardVO board = dao.findByBNO(boardNO);
+
+				board = dao.findByBNO(boardNO);
+				request.setAttribute("board", board);
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("board_Detail.jsp"); 
+				dispatcher.forward(request, response);
+				
+			} else {
+				response.sendRedirect("login.jsp");
+			}
+		} else {
+			response.sendRedirect("login.jsp");
+		}
 	}
 }

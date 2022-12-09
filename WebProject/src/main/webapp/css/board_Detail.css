@@ -10,7 +10,7 @@
 
 #boardTable {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	margin-top: 10rem;
@@ -61,42 +61,6 @@
 
 #title {
 	width: 30rem;
-}
-
-#title a {
-	text-decoration: none;
-	color: black;
-	padding: 1rem;
-}
-
-#title a::before {
-	content: '[';
-	opacity: 0;
-	margin-left: 10px;
-	transition: all 0.5s;
-}
-
-#title a::after {
-	content: ']';
-	opacity: 0;
-	margin-right: 10px;
-	transition: all 0.5s;
-}
-
-#title a:hover::before {
-	opacity: 1;
-	margin-left: 0;
-	margin-right: 10px;
-}
-
-#title a:hover::after {
-	opacity: 1;
-	margin-left: 0;
-	margin-left: 10px;
-}
-
-#title a:hover {
-	color: rgba(0, 0, 0, 0.7);
 }
 
 #id {

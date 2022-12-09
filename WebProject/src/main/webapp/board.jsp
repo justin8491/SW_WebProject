@@ -17,7 +17,7 @@ session = request.getSession();
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous" />
 
-<link rel="stylesheet" href="./css/board.css" />
+<link rel="stylesheet" href="/WebProject/css/board.css" />
 <script type="text/javascript" src="./js/board.js" defer></script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap")
@@ -31,7 +31,7 @@ session = request.getSession();
 			style="background-color: rgba(0, 0, 0, 0.7)">
 			<a class="navbar-brand" href="main.jsp?id=${id}"
 				style="font-size: 2rem">Developer</a> <a class="navbar-brand"
-				href="board" style="font-size: 1.5rem">게시판</a> <a
+				href="boardList" style="font-size: 1.5rem">게시판</a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem">채팅</a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
@@ -65,7 +65,7 @@ session = request.getSession();
 						class="navbar-nav justify-content-end flex-grow-1 pe-3">
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href="main.jsp?id=${id}">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="board">Boards</a>
+						<li class="nav-item"><a class="nav-link" href="boardList">Boards</a>
 						</li>
 						<li class="nav-item"><a class="nav-link" href="#">Talk</a></li>
 						<li class="nav-item"><a class="nav-link" id="logout"
@@ -97,11 +97,11 @@ session = request.getSession();
 			<c:when test="${!empty boardList}">
 				<c:forEach var="b" items="${boardList}">
 					<tr align="center">
-						<td>${b.boardNO}</td>
-						<td>${b.category}</td>
-						<td>${b.title}</td>
-						<td>${b.id}</td>
-						<td>${b.writeDate}</td>
+						<td id="boardNO">${b.boardNO}</td>
+						<td id="category">${b.category}</td>
+						<td id="title"> <a href="boardDetail?boardNO=${b.boardNO}">${b.title}</a></td>
+						<td id="id">${b.id}</td>
+						<td id="writeDate">${b.writeDate}</td>
 					</tr>
 				</c:forEach>
 			</c:when>

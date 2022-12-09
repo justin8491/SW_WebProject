@@ -88,16 +88,16 @@
 				</p>
 			</div>
 			<div class="margin_shift" id="pwd_box">
-				<label>비밀번호 :</label> <input id="pwd" name="pwd" type="text">
+				<label>비밀번호 :</label> <input id="pwd" name="pwd" type="text" value="${pwd}">
 			</div>
 			<div class="margin_shift" id="name_box">
-				<label>이름 :</label> <input id="name" name="name" type="text">
+				<label>이름 :</label> <input id="name" name="name" type="text" value="${name}">
 			</div>
 			<div class="margin_shift" id="phone_box">
-				<label>핸드폰 번호 :</label> <input id="phone" name="phone" type="text">
+				<label>핸드폰 번호 :</label> <input id="phone" name="phone" type="text" value="${phone}">
 			</div>
 			<div class="margin_shift" id="email_box">
-				<label>이메일 :</label> <input id="email" name="email" type="text">
+				<label>이메일 :</label> <input id="email" name="email" type="text" value="${email}">
 			</div>
 			<div class="margin_shift" id="btn_box">
 				<button id="updateBtn" a type="submit" class="btn btn-primary">수정</button>
