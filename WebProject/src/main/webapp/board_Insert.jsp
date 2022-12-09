@@ -15,13 +15,18 @@
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous" />
 
-<link rel="stylesheet" href="/WebProject/css/board_Detail.css" />
-<script type="text/javascript" src="/WebProject/js/board_Detail.js"
-	defer></script>
+<link rel="stylesheet" href="/WebProject/css/board_Update.css" />
+<!-- <script type="text/javascript" src="/WebProject/js/board_Detail.js" -->
+defer>
+</script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap")
 	;
 </style>
+<script
+	src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
+<script
+	src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/translations/ko.js"></script>
 </head>
 <body style="background-color: rgba(0, 0, 0, 0.2)">
 	<nav class="navbar bg-light fixed-top"
@@ -39,8 +44,7 @@
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a>
 			<!-- 유저 세션 닉네임 -->
 			<a class="navbar-brand" href="detail" style="font-size: 1.5rem">
-				${id} 님
-			</a>
+				${id} 님 </a>
 
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -80,27 +84,27 @@
 
 	<section class="container">
 		<div id="boardTable">
-			<div id="category">
-				<label>${board.category}</label>
-			</div>
-			<div id="title">
-				<h2>${board.title}</h2>
-			</div>
-			<div id="id">
-				<i class="fa fa-user"></i>
-				<div id="writerWithDate">
-					<label> ${board.id}</label> 
-					<span> ${board.writeDate}</span>
-				</div>
-			</div>
-			<div id="content">
-				${board.content}
-			</div>
+			<form id="boardInsert" action="boardInsert" method="post">
+				<!-- Category -->
+				<h1>글쓰기</h1>
+				<hr>
+				<!-- Title -->
+				<input type="text" name="title" id="title"> <select
+					name="category" id="category">
+					<option value="선택">카테고리 선택</option>
+					<option value="공지사항">공지사항</option>
+					<option value="일반게시판">일반게시판</option>
+					<option value="건의사항">건의사항</option>
+					<option value="Q&A">Q&A</option>
+				</select> <br>
+
+				<!-- Content -->
+				<textarea name="content" id="editor"></textarea>
+				<input type="submit" class="btn btn-primary" value="등록">
+				<button id="cancel" onclick="location.href='boardList'"
+					type="button" class="btn btn-danger">취소</button>
+			</form>
 		</div>
-		<button id="updateBtn" onclick="location.href='boardUpdate?boardNO=${board.boardNO}'" type="button" class="btn btn-primary">게시글 수정</button>
-		<button id="deleteBtn" onclick="location.href='boardDelete?boardNO=${board.boardNO}'" type="button" class="btn btn-danger">
-			게시글 삭제</button>
-		<button id="updateBtn" onclick="location.href='boardList'" type="button" class="btn btn-success">리스트로 돌아가기</button>	
 	</section>
 
 
@@ -111,7 +115,14 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
- <!-- Font Awesome -->
+<!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/d350cb3dc1.js"
 	crossorigin="anonymous"></script>
+<script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ), {language : "ko"} )
+            .catch( error => {
+                console.error( error );
+        } );
+</script>
 </html>

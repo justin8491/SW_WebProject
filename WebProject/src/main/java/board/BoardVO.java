@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 public class BoardVO {
 	
-	private String boardNO;
+	private int boardNO;
 	private String category;
 	private String title;
 	private String content;

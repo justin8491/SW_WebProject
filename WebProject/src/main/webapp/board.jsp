@@ -108,7 +108,7 @@ session = request.getSession();
 		</c:choose>
 	</table>
 	<div id="btn" class="d-grid gap-2 d-md-flex justify-content-md-end">
-		<a class="btn btn-primary me-md-2" role="button" id="write-article">글쓰기</a>
+		<a href="board_Insert.jsp" class="btn btn-primary me-md-2" role="button" id="write-article">글쓰기</a>
 	</div>
 </body>
 <!-- JavaScript Bundle with Popper -->

@@ -41,7 +41,7 @@ public class BoardDAO {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO board = new BoardVO(
-						rs.getString("boardNO"),	
+						rs.getInt("boardNO"),	
 						rs.getString("category"),	
 						rs.getString("title"),
 						rs.getString("content"),
@@ -162,29 +162,28 @@ public class BoardDAO {
 //		return null;		
 //	}
 
-//	public void insertMember(MemberBean memberBean) throws SQLException{
-//		try {
-//			// connDB();
-//			conn = dataFactory.getConnection();
-//			String query = "insert into t_member (id, pwd, name, phone, email) values (?,?,?,?,?)";
-//			System.out.println("prepareStatememt: " + query);
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, memberBean.getId());
-//			pstmt.setString(2, memberBean.getPwd());
-//			pstmt.setString(3, memberBean.getName());
-//			pstmt.setString(4, memberBean.getPhone());
-//			pstmt.setString(5, memberBean.getEmail());
-//			pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			throw e; //해당 함수를 호출한 부분으로 예외를 던진다 
-//		} finally {
-//			try {
-//				pstmt.close();
-//				conn.close();
-//			} catch (Exception e) {}
-//		}		
-//	}
+	public void insertBoard(BoardVO board) throws SQLException{
+		try {
+			// connDB();
+			conn = dataFactory.getConnection();
+			String query = "insert into t_board (category, title, id, content) values (?,?,?,?)";
+			System.out.println("prepareStatememt: " + query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, board.getCategory());
+			pstmt.setString(2, board.getTitle());
+			pstmt.setString(3, board.getId());
+			pstmt.setString(4, board.getContent());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e; //해당 함수를 호출한 부분으로 예외를 던진다 
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {}
+		}		
+	}
 	
 	public BoardVO findByBNO(String boardNO){
 		try {
@@ -198,7 +197,7 @@ public class BoardDAO {
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				BoardVO board = new BoardVO();
-				board.setBoardNO(rs.getString("BOARDNO"));
+				board.setBoardNO(rs.getInt("BOARDNO"));
 				board.setCategory(rs.getString("CATEGORY"));
 				board.setTitle(rs.getString("TITLE"));
 				board.setContent(rs.getString("CONTENT"));
@@ -237,7 +236,7 @@ public class BoardDAO {
 			pstmt.setString(2, board.getTitle());
 			pstmt.setString(3, board.getId());
 			pstmt.setString(4, board.getContent());
-			pstmt.setString(5, board.getBoardNO());
+			pstmt.setInt(5, board.getBoardNO());
 
 			pstmt.executeUpdate();
 			pstmt.close();
