@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
 <head>
 <meta charset="UTF-8" />
@@ -29,11 +30,8 @@
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a>
 			<!-- 유저 세션 닉네임 && 나의 정보보기 -->
-			<a class="navbar-brand" href="detail" style="font-size: 1.5rem"> <%
- session = request.getSession();
- out.print(session.getAttribute("id"));
- %> 님
-			</a>
+			<a class="navbar-brand" href="detail" style="font-size: 1.5rem">${id}
+				님 </a>
 
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -80,27 +78,26 @@
 			</div>
 			<div id="id_box">
 				<label>아이디 :</label>
-				<p>
-					<%
-					session = request.getSession();
-					out.print(session.getAttribute("id"));
-					%>
-				</p>
+				<p>${id}</p>
 			</div>
 			<div class="margin_shift" id="pwd_box">
-				<label>비밀번호 :</label> <input id="pwd" name="pwd" type="text" value="${pwd}">
+				<label>비밀번호 :</label> <input id="pwd" name="pwd" type="text"
+					value="${pwd}">
 			</div>
 			<div class="margin_shift" id="name_box">
-				<label>이름 :</label> <input id="name" name="name" type="text" value="${name}">
+				<label>이름 :</label> <input id="name" name="name" type="text"
+					value="${name}">
 			</div>
 			<div class="margin_shift" id="phone_box">
-				<label>핸드폰 번호 :</label> <input id="phone" name="phone" type="text" value="${phone}">
+				<label>핸드폰 번호 :</label> <input id="phone" name="phone" type="text"
+					value="${phone}">
 			</div>
 			<div class="margin_shift" id="email_box">
-				<label>이메일 :</label> <input id="email" name="email" type="text" value="${email}">
+				<label>이메일 :</label> <input id="email" name="email" type="text"
+					value="${email}">
 			</div>
 			<div class="margin_shift" id="btn_box">
-				<button id="updateBtn" a type="submit" class="btn btn-primary">수정</button>
+				<button id="updateBtn" type="submit" class="btn btn-primary">수정</button>
 				<button id="cancel" type="button" class="btn btn-danger">취소</button>
 			</div>
 		</form>

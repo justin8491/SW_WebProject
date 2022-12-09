@@ -41,7 +41,12 @@ public class DetailBoardServlet extends HttpServlet {
 
 				board = dao.findByBNO(boardNO);
 				request.setAttribute("board", board);
-
+				
+				System.out.println("Detail board : " + board.getBoardNO() + "\n"
+											   + board.getCategory() + "\n"
+											   + board.getTitle() + "\n"
+											   + board.getContent());	
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("board_Detail.jsp"); 
 				dispatcher.forward(request, response);
 				

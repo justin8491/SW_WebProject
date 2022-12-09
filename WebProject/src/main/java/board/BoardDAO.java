@@ -41,7 +41,7 @@ public class BoardDAO {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO board = new BoardVO(
-						rs.getInt("boardNO"),	
+						rs.getString("boardNO"),	
 						rs.getString("category"),	
 						rs.getString("title"),
 						rs.getString("content"),
@@ -198,7 +198,7 @@ public class BoardDAO {
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				BoardVO board = new BoardVO();
-				board.setBoardNO(rs.getInt("BOARDNO"));
+				board.setBoardNO(rs.getString("BOARDNO"));
 				board.setCategory(rs.getString("CATEGORY"));
 				board.setTitle(rs.getString("TITLE"));
 				board.setContent(rs.getString("CONTENT"));
@@ -222,34 +222,34 @@ public class BoardDAO {
 
 	
 
-//	public void updateMember(MemberBean member) {
-//		try {
-//			conn = dataFactory.getConnection();
-//			//자동 커밋 함수
-//			conn.setAutoCommit(true);
-//			String query = "update t_member set pwd=?, name=?, phone=?, email=?";
-//			query += " where id=?";
-//			System.out.println("prepareStatememt: " + query);
-//			pstmt = conn.prepareStatement(query);
-//			// 멤버 정보 설정
-//
-//			pstmt.setString(1, member.getPwd());
-//			pstmt.setString(2, member.getName());
-//			pstmt.setString(3, member.getPhone());
-//			pstmt.setString(4, member.getEmail());
-//			pstmt.setString(5, member.getId());
-//
-//			pstmt.executeUpdate();
-//			pstmt.close();
-//			//자동 커밋 세팅
-//			conn.commit();
-//			conn.close();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
+	public void updateBoard(BoardVO board) {
+		try {
+			conn = dataFactory.getConnection();
+			//자동 커밋 함수
+			conn.setAutoCommit(true);
+			String query = "update t_board set category=?, title=?, id=?, content=?";
+			query += " where boardNO=?";
+			System.out.println("prepareStatememt: " + query);
+			pstmt = conn.prepareStatement(query);
+			// 멤버 정보 설정
+
+			pstmt.setString(1, board.getCategory());
+			pstmt.setString(2, board.getTitle());
+			pstmt.setString(3, board.getId());
+			pstmt.setString(4, board.getContent());
+			pstmt.setString(5, board.getBoardNO());
+
+			pstmt.executeUpdate();
+			pstmt.close();
+			//자동 커밋 세팅
+			conn.commit();
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 }

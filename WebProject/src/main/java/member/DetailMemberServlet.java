@@ -29,28 +29,20 @@ public class DetailMemberServlet extends HttpServlet {
 		String id = "";
 		Boolean isLogon = false;
 		HttpSession session = request.getSession(false);
-		
-		
-		
-		
+
 		if (session != null) {
 			isLogon = (Boolean) session.getAttribute("isLogon");
 			if (isLogon == true) {
 				MemberDAO dao = new MemberDAO();
 				id = (String) session.getAttribute("id");
 				MemberBean memberBean = new MemberBean();
-				if(id.equals("admin")) {
+				if (id.equals("admin")) {
 					String getId = request.getParameter("id");
-					MemberBean getMemberMean = dao.findByUid(getId);
-					
-					
-					
-					
+					memberBean = dao.findByUid(getId);
+
 				}
-				
-				
-				
-				memberBean = dao.findByUid(id); 
+
+				memberBean = dao.findByUid(id);
 				session.setAttribute("id", memberBean.getId());
 				session.setAttribute("pwd", memberBean.getPwd());
 				session.setAttribute("name", memberBean.getName());

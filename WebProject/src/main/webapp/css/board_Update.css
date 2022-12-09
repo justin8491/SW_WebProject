@@ -1,0 +1,72 @@
+@charset "UTF-8";
+/* default value */
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+	font-family: 'Jua', sans-serif;
+}
+
+#boardTable {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10rem;
+	background-color: white;
+	margin-left: 13%;
+	margin-right: 13%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	border-radius: 2rem;
+	width: 75%;
+}
+
+#boardTable tr:first-child {
+	font-size: 1.5rem;
+}
+
+#boardTable tr {
+	height: 2.5rem;
+	border-bottom: 1px solid black;
+}
+
+#offcanvas-header {
+	color: white;
+}
+
+#sideBar li a {
+	color: white;
+}
+
+#btn {
+	margin-top: 2rem;
+	margin-right: 12.5%;
+	width: 10rem;
+	margin-left: 78%;
+}
+
+#btn a {
+	padding: 1rem 3rem 1rem 3rem;
+}
+
+#boardNO {
+	width: 7rem;
+}
+
+#category {
+	width: 15rem;
+}
+
+#title {
+	width: 30rem;
+}
+
+#id {
+	width: 7rem;
+}
+
+#writeDate {
+	width: 20rem;
+}
