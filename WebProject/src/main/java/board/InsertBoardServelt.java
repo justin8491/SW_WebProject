@@ -1,7 +1,5 @@
 package board;
 
-import jakarta.servlet.DispatcherType;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,12 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.jasper.tagplugins.jstl.core.Out;
 
 /**
  * Servlet implementation class LoginServlet
@@ -73,9 +66,9 @@ public class InsertBoardServelt extends HttpServlet {
 			}
 		
 			
-		RequestDispatcher dispatcher = request.getRequestDispatcher("boardList");
-		dispatcher.forward(request, response);
-		//response.sendRedirect("boardList");
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("boardList");
+//		dispatcher.forward(request, response);
+		response.sendRedirect("boardList");
 
 	}
 

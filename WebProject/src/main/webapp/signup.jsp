@@ -78,7 +78,7 @@
 				
 				<div id="accept_check">
 					<p class="sort_row accept">
-						<input id="ok" name="ok" type="checkbox" />개인정보 수집 및 이용<span>(필수)</span>
+						<input id="accept" name="accept" type="checkbox"/>개인정보 수집 및 이용<span>(필수)</span>
 					</p>
 				</div>
 				<div id="btn_check">

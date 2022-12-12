@@ -24,11 +24,11 @@ session = request.getSession();
 	;
 </style>
 </head>
-<body style="background-color: rgba(0, 0, 0, 0.2)">
+<body>
 	<nav class="navbar bg-light fixed-top"
 		style="padding-top: 0; padding-bottom: 0">
 		<div class="container-fluid"
-			style="background-color: rgba(0, 0, 0, 0.7)">
+			style="background-color: #A4A4A4" >
 			<a class="navbar-brand" href="list" style="font-size: 2rem">Developer</a>
 			<a class="navbar-brand" href="list" style="font-size: 1.5rem">회원
 				목록</a> <a class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a

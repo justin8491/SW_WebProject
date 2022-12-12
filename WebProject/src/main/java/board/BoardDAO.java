@@ -11,14 +11,11 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
-
-
 public class BoardDAO {
 	Connection conn;
 	PreparedStatement pstmt;
 	DataSource dataFactory;
-	
+
 	public BoardDAO() {
 		try {
 			Context context = new InitialContext();
@@ -29,6 +26,7 @@ public class BoardDAO {
 		}
 	}
 	
+	//게시판 목록
 	public List<BoardVO> listboard() {
 		List<BoardVO> list = new ArrayList<>();
 		try {
@@ -40,14 +38,8 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				BoardVO board = new BoardVO(
-						rs.getInt("boardNO"),	
-						rs.getString("category"),	
-						rs.getString("title"),
-						rs.getString("content"),
-						rs.getString("id"),
-						rs.getDate("writeDate"),
-						rs.getString("isExist"));
+				BoardVO board = new BoardVO(rs.getInt("boardNO"), rs.getString("category"), rs.getString("title"),
+						rs.getString("content"), rs.getString("id"), rs.getDate("writeDate"), rs.getString("isExist"));
 				System.out.println(board);
 				list.add(board);
 			}
@@ -60,6 +52,7 @@ public class BoardDAO {
 		return list;
 	}
 	
+	//게시판 삭제
 	public void deleteBoard(String boardNO, String value) {
 		try {
 			conn = dataFactory.getConnection();
@@ -81,88 +74,8 @@ public class BoardDAO {
 		}
 	}
 	
-//	public boolean isExisted(MemberBean member) {
-//		boolean result = false;
-//		System.out.println(member.getId());
-//		String userid = member.getId();
-//		String pwd = member.getPwd();
-//		try {
-//			conn = dataFactory.getConnection();
-//			String query = "select case count(*) when 1 then 'true' else 'false' end as result from t_member";
-//			query += " where id=? and pwd=?";
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, userid);
-//			pstmt.setString(2, pwd);
-//			System.out.println(query);
-//			System.out.println(userid);
-//			System.out.println(pwd);
-//			
-//			ResultSet rs = pstmt.executeQuery();
-//			rs.next(); 
-//			result = Boolean.parseBoolean(rs.getString("result"));
-//			System.out.println("result=" + result);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return result;
-//	}
-
-//	public void addMember(MemberBean member) {
-//		try {
-//			conn = dataFactory.getConnection();
-//			String query = "insert into t_member";
-//			query += " (id, pwd, name, phone, email)";
-//			query += " values(?,?,?,?,?)";
-//			System.out.println("prepareStatememt: " + query);
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, member.getId());
-//			pstmt.setString(2, member.getPwd());
-//			pstmt.setString(3, member.getName());
-//			pstmt.setString(4, member.getPhone());
-//			pstmt.setString(5, member.getEmail());
-//			pstmt.executeUpdate();
-//			pstmt.close();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
-//	public MemberBean viewMember(String id) {
-//		try {
-//			// connDB();
-//			conn = dataFactory.getConnection();
-//			String query = "select * from t_member where id = ?";
-//			System.out.println("prepareStatememt: " + query);
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, id);
-//			ResultSet rs = pstmt.executeQuery();
-//			MemberBean memberBean = null;
-//			
-//			if (rs.next()) {
-//				memberBean = new MemberBean(
-//						rs.getString("id"),	
-//						rs.getString("pwd"),	
-//						rs.getString("name"),
-//						rs.getString("phone"),
-//						rs.getString("email"),
-//						rs.getString("isexist"),
-//						rs.getDate("createDate"));
-//			}
-//			rs.close();
-//			
-//			return memberBean;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				pstmt.close();
-//				conn.close();
-//			} catch (Exception e) {}
-//		}
-//		return null;		
-//	}
-
-	public void insertBoard(BoardVO board) throws SQLException{
+	//게시판 생성
+	public void insertBoard(BoardVO board) throws SQLException {
 		try {
 			// connDB();
 			conn = dataFactory.getConnection();
@@ -176,16 +89,18 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw e; //해당 함수를 호출한 부분으로 예외를 던진다 
+			throw e; // 해당 함수를 호출한 부분으로 예외를 던진다
 		} finally {
 			try {
 				pstmt.close();
 				conn.close();
-			} catch (Exception e) {}
-		}		
+			} catch (Exception e) {
+			}
+		}
 	}
 	
-	public BoardVO findByBNO(String boardNO){
+	//게시판 기본키값 기준으로 데이터 가져오기
+	public BoardVO findByBNO(String boardNO) {
 		try {
 			conn = dataFactory.getConnection();
 			String query = "select * from t_board";
@@ -206,7 +121,7 @@ public class BoardDAO {
 				board.setWriteDate(rs.getDate("WRITEDATE"));
 				rs.close();
 				return board;
-			} 
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("------------- 실패 사유 : " + e.getMessage());
@@ -214,17 +129,17 @@ public class BoardDAO {
 			try {
 				pstmt.close();
 				conn.close();
-			} catch (Exception e2) {}
+			} catch (Exception e2) {
+			}
 		}
 		return null;
 	}
-
 	
-
+	//게시판 업데이트
 	public void updateBoard(BoardVO board) {
 		try {
 			conn = dataFactory.getConnection();
-			//자동 커밋 함수
+			// 자동 커밋 함수
 			conn.setAutoCommit(true);
 			String query = "update t_board set category=?, title=?, id=?, content=?";
 			query += " where boardNO=?";
@@ -240,15 +155,41 @@ public class BoardDAO {
 
 			pstmt.executeUpdate();
 			pstmt.close();
-			//자동 커밋 세팅
+			// 자동 커밋 세팅
 			conn.commit();
 			conn.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 	
-	
+	//게시판 검색
+	public List<BoardVO> listBoardValue(String selectValue, String searchValue) {
+		List<BoardVO> list = new ArrayList<>();
+		try {
+			// connDB();
+			conn = dataFactory.getConnection();
+			String query = "select * from t_board ";
+			query += "WHERE isexist != '0' " + "AND " + selectValue + " LIKE '%" + searchValue + "%' "
+					+ "order by writeDate DESC";
+			System.out.println("prepareStatememt: " + query);
+			pstmt = conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				BoardVO board = new BoardVO(rs.getInt("boardNO"), rs.getString("category"), rs.getString("title"),
+						rs.getString("content"), rs.getString("id"), rs.getDate("writeDate"), rs.getString("isExist"));
+				System.out.println(board);
+				list.add(board);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

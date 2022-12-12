@@ -24,13 +24,13 @@
 	<nav class="navbar bg-light fixed-top"
 		style="padding-top: 0; padding-bottom: 0">
 		<div class="container-fluid"
-			style="background-color: rgba(0, 0, 0, 0.7)">
+			style="background-color: #A4A4A4" >
 			<a class="navbar-brand" href="main.jsp?id=${id}"
 				style="font-size: 2rem">Developer</a> 
 			<a class="navbar-brand"
 				href="boardList" style="font-size: 1.5rem">게시판</a> 
 				<a class="navbar-brand"
-				href="#" style="font-size: 1.5rem">채팅</a> <a class="navbar-brand"
+				href="/WebProject/chat/chat.jsp" style="font-size: 1.5rem">채팅</a> <a class="navbar-brand"
 				href="#" style="font-size: 1.5rem"></a> <a class="navbar-brand"
 				href="#" style="font-size: 1.5rem"></a> <a class="navbar-brand"
 				href="#" style="font-size: 1.5rem"></a> <a class="navbar-brand"

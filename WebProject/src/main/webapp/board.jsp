@@ -8,6 +8,19 @@ session = request.getSession();
 %>
 <html>
 <head>
+<!-- 프로그래스바 스크립트 START -->
+<script>
+// 인터넷 스크롤 이동 시 이벤트
+window.onscroll = function() {createPrograssBar()}; 
+
+function createPrograssBar() {
+  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  var scrolled = (winScroll / height) * 100;
+  document.getElementById("indicator").style.width = scrolled + "%";
+}
+</script>
+<!-- 프로그래스바 스크립트 END -->
 <meta charset="UTF-8" />
 <title>Main</title>
 <!-- CSS only -->
@@ -24,15 +37,21 @@ session = request.getSession();
 	;
 </style>
 </head>
-<body style="background-color: rgba(0, 0, 0, 0.2)">
+<body>
+	<!-- progress-bar 영역 Start -->
+	<div class="progress-container">
+		<div class="progress-bar" id="indicator"></div>
+	</div>
+	<!-- progress-bar 영역 End -->
+	<!-- 탑 로고 시작 -->
 	<nav class="navbar bg-light fixed-top"
 		style="padding-top: 0; padding-bottom: 0">
 		<div class="container-fluid"
-			style="background-color: rgba(0, 0, 0, 0.7)">
+			style="background-color: #A4A4A4" >
 			<a class="navbar-brand" href="main.jsp?id=${id}"
 				style="font-size: 2rem">Developer</a> <a class="navbar-brand"
 				href="boardList" style="font-size: 1.5rem">게시판</a> <a
-				class="navbar-brand" href="#" style="font-size: 1.5rem">채팅</a> <a
+				class="navbar-brand" href="chat.jsp" style="font-size: 1.5rem">채팅</a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
@@ -40,10 +59,7 @@ session = request.getSession();
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a>
 			<!-- 유저 세션 닉네임 -->
 			<a class="navbar-brand" href="detail" style="font-size: 1.5rem">
-				<%
-				session = request.getSession();
-				out.print(session.getAttribute("id"));
-				%> 님
+				${id} 님
 			</a>
 
 			<button class="navbar-toggler" type="button"
@@ -51,7 +67,7 @@ session = request.getSession();
 				aria-controls="offcanvasNavbar">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<!-- 탑 nav 바 태그 -->
+			<!-- 탑 사이드 바 태그 -->
 			<div style="background-color: rgba(0, 0, 0, 0.1)"
 				class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
 				aria-labelledby="offcanvasNavbarLabel">
@@ -81,12 +97,30 @@ session = request.getSession();
 			</div>
 		</div>
 	</nav>
-
+	<!-- 탑 or 사이드 End -->
+	
+	<div id="tableHeader">
+		<!-- 검색창 -->
+		<div>
+			<form id="Search" action="Search" method="post">
+				<select name="selectValue">
+					<option value="title">제목</option>
+					<option value="id">작성자</option>
+				</select> <input type="text" name="searchValue" placeholder="검색어" /> <input
+					type="submit" value="검색" />
+			</form>
+		</div>
+		<!-- 글쓰기 버튼 -->
+		<div>
+			<a href="board_Insert.jsp" class="btn btn-primary me-md-2"
+				role="button" id="write-article">글쓰기</a>
+		</div>
+	</div><!-- 검색 글쓰기 End -->
+	<!-- 테이블 시작 -->
 	<table id="boardTable">
 		<tr align="center">
-			<td><b>글 번호</b></td>
-			<td><b>카테고리</b></td>
-			<td><b>글 제목</b></td>
+			<td><b>분류</b></td>
+			<td colspan="2"><b>제목</b></td>
 			<td><b>작성자</b></td>
 			<td><b>작성일</b></td>
 		</tr>
@@ -97,9 +131,9 @@ session = request.getSession();
 			<c:when test="${!empty boardList}">
 				<c:forEach var="b" items="${boardList}">
 					<tr align="center">
-						<td id="boardNO">${b.boardNO}</td>
 						<td id="category">${b.category}</td>
-						<td id="title"> <a href="boardDetail?boardNO=${b.boardNO}">${b.title}</a></td>
+						<td id="boardNO">${b.boardNO}</td>
+						<td id="title"><a href="boardDetail?boardNO=${b.boardNO}">${b.title}</a></td>
 						<td id="id">${b.id}</td>
 						<td id="writeDate">${b.writeDate}</td>
 					</tr>
@@ -107,9 +141,7 @@ session = request.getSession();
 			</c:when>
 		</c:choose>
 	</table>
-	<div id="btn" class="d-grid gap-2 d-md-flex justify-content-md-end">
-		<a href="board_Insert.jsp" class="btn btn-primary me-md-2" role="button" id="write-article">글쓰기</a>
-	</div>
+	
 </body>
 <!-- JavaScript Bundle with Popper -->
 <script

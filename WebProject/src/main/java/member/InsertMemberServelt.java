@@ -60,6 +60,8 @@ public class InsertMemberServelt extends HttpServlet {
 		String email1 = request.getParameter("email1");
 		String email2 = request.getParameter("email2");
 		
+		String accept = request.getParameter("accept");
+		
 		String phone = phone1 + "-" + phone2+ "-" + phone3;
 		String email = email1 + "@" + email2;
 		

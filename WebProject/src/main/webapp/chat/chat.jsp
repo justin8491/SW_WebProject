@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 
 <html>
@@ -15,9 +14,7 @@
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous" />
 
-<link rel="stylesheet" href="/WebProject/css/board_Detail.css" />
-<script type="text/javascript" src="/WebProject/js/board_Detail.js"
-	defer></script>
+<link rel="stylesheet" href="../css/chat.css" />
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap")
 	;
@@ -26,21 +23,19 @@
 <body style="background-color: rgba(0, 0, 0, 0.2)">
 	<nav class="navbar bg-light fixed-top"
 		style="padding-top: 0; padding-bottom: 0">
-		<div class="container-fluid"
-			style="background-color: rgba(0, 0, 0, 0.7)">
+		<div class="container-fluid" style="background-color: #A4A4A4">
 			<a class="navbar-brand" href="main.jsp?id=${id}"
 				style="font-size: 2rem">Developer</a> <a class="navbar-brand"
 				href="boardList" style="font-size: 1.5rem">게시판</a> <a
-				class="navbar-brand" href="chat.jsp" style="font-size: 1.5rem">채팅</a> <a
-				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
+				class="navbar-brand" href="/WebProject/chat/chat.jsp" style="font-size: 1.5rem">채팅</a>
+			<a class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a>
 			<!-- 유저 세션 닉네임 -->
 			<a class="navbar-brand" href="detail" style="font-size: 1.5rem">
-				${id} 님
-			</a>
+				${id} 님 </a>
 
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -52,13 +47,13 @@
 				class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
 				aria-labelledby="offcanvasNavbarLabel">
 				<div class="offcanvas-header">
-					<h5 class="offcanvas-title" id="sideBarLabel">Menu Bar</h5>
+					<h5 style="color: black" class="offcanvas-title"
+						id="offcanvasNavbarLabel">Menu Bar</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
 						aria-label="Close"></button>
 				</div>
 				<div class="offcanvas-body">
-					<ul id="sideBar"
-						class="navbar-nav justify-content-end flex-grow-1 pe-3">
+					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href="main.jsp?id=${id}">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="boardList">Boards</a>
@@ -77,32 +72,48 @@
 			</div>
 		</div>
 	</nav>
-
-	<section class="container">
-		<div id="boardTable">
-			<div id="category">
-				<label>${board.category}</label>
-			</div>
-			<div id="title">
-				<h2>${board.title}</h2>
-			</div>
-			<div id="id">
-				<i class="fa fa-user"></i>
-				<div id="writerWithDate">
-					<label> ${board.id}</label> 
-					<span> ${board.writeDate}</span>
-				</div>
-			</div>
-			<div id="content">
-				${board.content}
-			</div>
+	<!-- 채팅방 div -->
+	<section style="margin-top: 5rem; margin-left: 4rem;">
+		<div>
+			<h1>채팅방 목록</h1>
 		</div>
-		<button id="updateBtn" onclick="location.href='boardUpdate?boardNO=${board.boardNO}'" type="button" class="btn btn-primary">게시글 수정</button>
-		<button id="deleteBtn" onclick="location.href='boardDelete?boardNO=${board.boardNO}'" type="button" class="btn btn-danger">
-			게시글 삭제</button>
-		<button id="updateBtn" onclick="location.href='boardList'" type="button" class="btn btn-success">리스트로 돌아가기</button>	
-	</section>
+		<hr>
+		<input id="roomName" type="text" placeholder="채팅방 이름"/>
+		<input id="InsertRoom" type="button" value="채팅방생성"/> 
+		<div id="chatRoomList">
+		</div>
+		<script type="text/javascript">
+			
+		var roomName = document.querySelector("#roomName");
+		var InsertRoom = document.querySelector("#InsertRoom");
+		var chatRoomList = document.querySelector("#chatRoomList");
+		
+		
+		
+		
+		
+		InsertRoom.onclick = () => {
+			chatRoomList.innerHTML += ("<a href='/WebProject/chat/chat.jsp'>"+ roomName.value +"</a>");
+		}
+				
+				
+				
+				
+				
+				
+				
+			
+			
+			
+			
+		
+		</script>
 
+
+
+	</section>
+	<!-- 채팅방 div End -->
+	
 
 
 </body>
@@ -110,8 +121,5 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-	crossorigin="anonymous"></script>
- <!-- Font Awesome -->
-<script src="https://kit.fontawesome.com/d350cb3dc1.js"
 	crossorigin="anonymous"></script>
 </html>
