@@ -10,6 +10,16 @@
 <!-- Font Awesome CDN -->
 <script src="https://kit.fontawesome.com/d350cb3dc1.js"
 	crossorigin="anonymous"></script>
+<style type="text/css">
+.fa-times {
+color: red;
+}
+
+.fa-check {
+	display : none;
+	color : green;
+}
+</style>
 <title>회원가입</title>
 </head>
 <body>
@@ -32,18 +42,17 @@
 		<form id="information__form" action="insert" method="post">
 			<div id="information__form-list">
 				<div id="name_check">
-					<input id="name" name="name" type="text" placeholder="이름" /><i
-						class="fa fa-check"></i>
+					<input id="name" name="name" type="text" placeholder="이름" /><i class="success fa fa-check"></i><i  class="fail fa fa-times"></i>
 				</div>
 
 				<div id="id_check">
-					<input id="id" name="id" type="text" placeholder="아이디" /><i
-						class="fa fa-check"></i>
+					<input id="id" name="id" type="text" placeholder="아이디" /><i 
+						class="fa fa-check"></i><i  class="fail fa fa-times"></i>
 				</div>
 				<div id="pwd_check">
 					<input id="pwd" name="pwd" type="password" placeholder="비밀번호" /> <input
-						id="pwd_chenge_check" type="password" placeholder="비밀번호 재입력" /><i
-						class="fa fa-check"></i>
+						id="pwd_chenge_check" type="password" placeholder="비밀번호 재입력" /><i 
+						class="fa fa-check"></i><i  class="fail fa fa-times"></i>
 				</div>
 
 				<div id="phone_check">
@@ -58,14 +67,14 @@
 					<p>-</p>
 					<input type="text" id="phone2" name="phone2" />
 					<p>-</p>
-					<input type="text" id="phone3" name="phone3" /><br /> <i
-						class="fa fa-check"></i>
+					<input type="text" id="phone3" name="phone3" /><br /> <i 
+						class="fa fa-check"></i><i  class="fail fa fa-times"></i>
 				</div>
 				<div id="email_check">
 					<input id="email1" name="email1" type="text" placeholder="이메일" /> @ 
 					<select id="email2" name="email2">
 						<option>이메일 선택</option>
-						<option>naever.com</option>
+						<option>naver.com</option>
 						<option>daum.net</option>
 						<option>google.com</option>
 						<option>hanmail.net</option>
@@ -73,7 +82,8 @@
 						<option>nate.com</option>
 						<option>직접입력</option>
 					</select> 
-					<i hidden="" class="fa fa-check"></i>
+					<i  hidden="" class="fa fa-check"></i>
+					<i  class="fail fa fa-times"></i>
 				</div>
 				
 				<div id="accept_check">
@@ -84,11 +94,12 @@
 				<div id="btn_check">
 					<input id="submit" type="submit" value="회원가입" /> 
 					<input type="button" id="cancel"
-						value="취소" />
+						value="취소" onclick="location.href='login.jsp'"/>
 				</div>
 			</div>
 		</form>
 	</section>
 </body>
+<script type="text/javascript" src="./js/signup.js"></script>
 </html>
 

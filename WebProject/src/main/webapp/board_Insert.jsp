@@ -15,7 +15,7 @@
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous" />
 
-<link rel="stylesheet" href="/WebProject/css/board_Update.css" />
+<link rel="stylesheet" href="/WebProject/css/board_Insert.css" />
 <!-- <script type="text/javascript" src="/WebProject/js/board_Detail.js" -->
 defer>
 </script>
@@ -31,17 +31,17 @@ defer>
 <body style="background-color: rgba(0, 0, 0, 0.2)">
 	<nav class="navbar bg-light fixed-top"
 		style="padding-top: 0; padding-bottom: 0">
-		<div class="container-fluid"
-			style="background-color: rgba(0, 0, 0, 0.7)">
+		<div class="container-fluid" style="background-color: #A4A4A4">
 			<a class="navbar-brand" href="main.jsp?id=${id}"
 				style="font-size: 2rem">Developer</a> <a class="navbar-brand"
 				href="boardList" style="font-size: 1.5rem">게시판</a> <a
-				class="navbar-brand" href="chat.jsp?id=${id}" style="font-size: 1.5rem">채팅</a> <a
-				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
-				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
-				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
-				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
-				class="navbar-brand" href="#" style="font-size: 1.5rem"></a>
+				class="navbar-brand" href="chat.jsp?id=${id}"
+				style="font-size: 1.5rem">채팅</a> <a class="navbar-brand" href="#"
+				style="font-size: 1.5rem"></a> <a class="navbar-brand" href="#"
+				style="font-size: 1.5rem"></a> <a class="navbar-brand" href="#"
+				style="font-size: 1.5rem"></a> <a class="navbar-brand" href="#"
+				style="font-size: 1.5rem"></a> <a class="navbar-brand" href="#"
+				style="font-size: 1.5rem"></a>
 			<!-- 유저 세션 닉네임 -->
 			<a class="navbar-brand" href="detail" style="font-size: 1.5rem">
 				${id} 님 </a>
@@ -67,7 +67,8 @@ defer>
 							aria-current="page" href="main.jsp?id=${id}">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="boardList">Boards</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" href="chat.jsp?id=${id}">Talk</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="chat.jsp?id=${id}">Talk</a></li>
 						<li class="nav-item"><a class="nav-link" id="logout"
 							href='logout'>Logout</a></li>
 					</ul>
@@ -82,27 +83,33 @@ defer>
 		</div>
 	</nav>
 
-	<section class="container">
+	<section id="container">
 		<div id="boardTable">
 			<form id="boardInsert" action="boardInsert" method="post">
 				<!-- Category -->
 				<h1>글쓰기</h1>
 				<hr>
-				<!-- Title -->
-				<input type="text" name="title" id="title"> <select
-					name="category" id="category">
-					<option value="선택">카테고리 선택</option>
-					<option value="공지사항">공지사항</option>
-					<option value="일반게시판">일반게시판</option>
-					<option value="건의사항">건의사항</option>
-					<option value="Q&A">Q&A</option>
-				</select> <br>
+				<div id="categoryOrtitle">
+					<!-- Title -->
+					<input type="text" name="title" id="title"> <select
+						name="category" id="category">
+						<option value="선택">카테고리 선택</option>
+						<option value="공지사항">공지사항</option>
+						<option value="일반게시판">일반게시판</option>
+						<option value="건의사항">건의사항</option>
+						<option value="Q&A">Q&A</option>
+					</select>
+				</div>
 
 				<!-- Content -->
-				<textarea name="content" id="editor"></textarea>
-				<input type="submit" class="btn btn-primary" value="등록">
-				<button id="cancel" onclick="location.href='boardList'"
-					type="button" class="btn btn-danger">취소</button>
+				<textarea  name="content" id="editor"></textarea>
+
+				<div id="btn_box">
+					<input type="submit" class="btn btn-primary" value="등록">
+					<button id="cancel" onclick="location.href='boardList'"
+						type="button" class="btn btn-danger">취소</button>
+				</div>
+
 			</form>
 		</div>
 	</section>

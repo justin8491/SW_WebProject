@@ -106,7 +106,9 @@ function createPrograssBar() {
 				<select name="selectValue">
 					<option value="title">제목</option>
 					<option value="id">작성자</option>
-				</select> <input type="text" name="searchValue" placeholder="검색어" /> <input
+				</select> 
+				<input id="searchText" type="text" name="searchValue" placeholder="검색어" /> 
+				<input id="submit"
 					type="submit" value="검색" />
 			</form>
 		</div>

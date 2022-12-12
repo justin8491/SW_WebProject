@@ -18,6 +18,10 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+.fixed-top {
+	border-bottom: 2px solid black;
+}
+
 /* 프로그래스바 컨테이너 디자인 */
 .progress-container {
     position: fixed; /*상단 고정*/

@@ -39,6 +39,11 @@ public class MemberBean {
 		this.pwd = pwd;
 		this.accept = accept;
 	}
+
+
+	
+	
+	
 	
 	
 	

@@ -6,6 +6,7 @@
 	list-style: none;
 	text-decoration: none;
 	font-family: 'Jua', sans-serif;
+	box-sizing: border-box;
 }
 
 body {
@@ -13,39 +14,51 @@ body {
 }
 
 body::-webkit-scrollbar {
-  display: none;
+	display: none;
+}
+
+.fixed-top {
+	border-bottom: 2px solid black;
 }
 
 /* 프로그래스바 컨테이너 디자인 */
 .progress-container {
-    position: fixed; /*상단 고정*/
-    top: 58px; /*페이지의 최상단에 붙어서 위치*/
-    z-index: 1000; /*페이지의 다른 요소보다 가장 위에 나타나도록 설정*/
-      width: 100%; 
-      height: 8px; /* 높이 */
-      background: #ccc; /* 기본 배경색 */
+	position: fixed; /*상단 고정*/
+	top: 58px; /*페이지의 최상단에 붙어서 위치*/
+	z-index: 1000; /*페이지의 다른 요소보다 가장 위에 나타나도록 설정*/
+	width: 100%;
+	height: 8px; /* 높이 */
+	background: #ccc; /* 기본 배경색 */
 }
- 
+
 /* 프로그래스바 디자인 */
 .progress-bar {
-      height: 8px;  /* 높이 */
-      background: #7E6868; /* 색상 */
-      width: 0%;
+	height: 8px; /* 높이 */
+	background: #7E6868; /* 색상 */
+	width: 0%;
+}
+
+#container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10rem;
+	width: 100%;
 }
 
 #boardTable {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
-	margin-top: 10rem;
+	align-items: flex-start;
+	align-content: center;
+	padding: 2rem; border-radius : 2rem;
 	background-color: white;
-	margin-left: 13%;
-	margin-right: 13%;
-	padding-top: 2%;
-	padding-bottom: 2%;
 	border-radius: 2rem;
-	width: 75%;
+}
+
+#boardUpdateInsert {
+	width: 100%;
 }
 
 #boardTable tr:first-child {
@@ -65,6 +78,16 @@ body::-webkit-scrollbar {
 	color: white;
 }
 
+#categoryOrtitle {
+	margin-bottom: 1rem;
+	display: flex;
+	justify-content: space-around;
+}
+
+#content {
+	box-sizing: border-box;
+}
+
 #btn {
 	margin-top: 2rem;
 	margin-right: 12.5%;
@@ -81,11 +104,12 @@ body::-webkit-scrollbar {
 }
 
 #category {
-	width: 15rem;
+	width: 10rem;
 }
 
 #title {
 	width: 30rem;
+	margin-right: 1rem;
 }
 
 #id {
@@ -94,4 +118,18 @@ body::-webkit-scrollbar {
 
 #writeDate {
 	width: 20rem;
+}
+
+#btn_box {
+	display: flex;
+	margin: 1.5rem 13% 0 13%;
+	justify-content: space-around;
+}
+
+.btn-danger {
+	width: 5rem;
+}
+
+.ck {
+	height: 15rem;
 }

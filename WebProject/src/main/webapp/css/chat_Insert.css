@@ -16,6 +16,10 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+.fixed-top {
+	border-bottom: 2px solid black;
+}
+
 #container {
 	width: 100%;
 	display: flex;

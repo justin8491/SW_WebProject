@@ -87,25 +87,7 @@ public class MemberDAO {
 		return result;
 	}
 
-	public void addMember(MemberBean member) {
-		try {
-			conn = dataFactory.getConnection();
-			String query = "insert into t_member";
-			query += " (id, pwd, name, phone, email)";
-			query += " values(?,?,?,?,?)";
-			System.out.println("prepareStatememt: " + query);
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getPwd());
-			pstmt.setString(3, member.getName());
-			pstmt.setString(4, member.getPhone());
-			pstmt.setString(5, member.getEmail());
-			pstmt.executeUpdate();
-			pstmt.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 	
 //	public MemberBean viewMember(String id) {
 //		try {
@@ -190,6 +172,63 @@ public class MemberDAO {
 			} else {
 				System.out.println("[" + id + "] 정보가 존재하지 않습니다"); 
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("------------- 실패 사유 : " + e.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e2) {}
+		}
+		return null;
+	}
+	
+	public MemberBean findId(MemberBean memberBean){
+		try {
+			conn = dataFactory.getConnection();
+			String query = "select id from t_member";
+			query += " where name=? and email=?";
+			System.out.println("prepareStatememt: " + query);
+			pstmt = conn.prepareStatement(query);
+			// 멤버 존재여부 확인
+			pstmt.setString(1, memberBean.getName());
+			pstmt.setString(2, memberBean.getEmail());
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				
+				memberBean.setId(rs.getString("ID"));
+				rs.close();
+				return memberBean;
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("------------- 실패 사유 : " + e.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e2) {}
+		}
+		return null;
+	}
+	public MemberBean findPwd(MemberBean memberBean){
+		try {
+			conn = dataFactory.getConnection();
+			String query = "select pwd from t_member";
+			query += " where id=? and name=?";
+			System.out.println("prepareStatememt: " + query);
+			pstmt = conn.prepareStatement(query);
+			// 멤버 존재여부 확인
+			pstmt.setString(1, memberBean.getId());
+			pstmt.setString(2, memberBean.getName());
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				
+				memberBean.setPwd(rs.getString("PWD"));
+				rs.close();
+				return memberBean;
+			} 
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("------------- 실패 사유 : " + e.getMessage());

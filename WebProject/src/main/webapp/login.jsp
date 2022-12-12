@@ -22,6 +22,22 @@
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap")
 	;
+
+a {
+	margin-top: 0; text-decoration : none;
+	color: black;
+	text-decoration: none;
+	padding-right: 1rem;
+	padding-right: 1rem;  
+}
+
+#id_check {
+	
+}
+
+a:hover {
+	color: white;
+}
 </style>
 <title>Main</title>
 </head>
@@ -34,15 +50,21 @@
 			<div id="loginForm__container">
 				<div id="id_box" class="form-floating mb-3">
 					<input name="id" type="text" class="form-control"
-						id="floatingInput" placeholder="name@example.com" />
-					<label for="floatingInput">User ID </label>
+						id="floatingInput" placeholder="name@example.com" /> <label
+						for="floatingInput">User ID </label>
 				</div>
 				<div id="pwd_box" class="form-floating">
 					<input name="pwd" type="password" class="form-control"
 						id="floatingPassword" placeholder="Password" /> <label
 						for="floatingPassword">Password</label>
 				</div>
+				<div id="btn_box">
+					<a id="id_find" href="find_id.jsp">Find ID</a> <a id="pw_find"
+						href="find_pw.jsp">Find PW</a>
+				</div>
 			</div>
+
+
 
 			<div id="btn_box">
 				<input id="login" type="submit" value="Login" /> <input id="signUp"

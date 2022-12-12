@@ -29,10 +29,7 @@
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a>
 			<!-- 유저 세션 닉네임 -->
-			<a class="navbar-brand" href="detail" style="font-size: 1.5rem"> <%
- session = request.getSession();
- out.print(session.getAttribute("id"));
- %> 님
+			<a class="navbar-brand" href="detail" style="font-size: 1.5rem"> ${id} 님
 			</a>
 
 			<button class="navbar-toggler" type="button"

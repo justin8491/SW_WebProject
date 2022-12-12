@@ -5,8 +5,12 @@ body {
 	padding: 0;
 }
 
-i {
+.success {
 	color: green;
+}
+
+.fail {
+	color: red;
 }
 
 * {

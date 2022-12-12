@@ -19,6 +19,10 @@
 	margin-bottom: 3rem;
 }
 
+.fixed-top {
+	border-bottom: 2px solid black;
+}
+
 #container {
 	display: flex;
 	flex-direction: column;
@@ -71,7 +75,7 @@ footer {
 	display: flex;
 	flex-direction: column;
 	color: gray;
-	margin-top: 23rem;
+	margin-top: 17rem;
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;

@@ -23,19 +23,17 @@
 <body style="background-color: rgba(0, 0, 0, 0.2)">
 	<nav class="navbar bg-light fixed-top"
 		style="padding-top: 0; padding-bottom: 0">
-		<div class="container-fluid"
-			style="background-color: #A4A4A4" >
+		<div class="container-fluid" style="background-color: #A4A4A4">
 			<a class="navbar-brand" href="main.jsp?id=${id}"
-				style="font-size: 2rem">Developer</a> 
-			<a class="navbar-brand"
-				href="boardList" style="font-size: 1.5rem">게시판</a> 
-				<a class="navbar-brand"
-				href="chat.jsp?id=${id}" style="font-size: 1.5rem">채팅</a> <a class="navbar-brand"
-				href="#" style="font-size: 1.5rem"></a> <a class="navbar-brand"
-				href="#" style="font-size: 1.5rem"></a> <a class="navbar-brand"
-				href="#" style="font-size: 1.5rem"></a> <a class="navbar-brand"
-				href="#" style="font-size: 1.5rem"></a> <a class="navbar-brand"
-				href="#" style="font-size: 1.5rem"></a>
+				style="font-size: 2rem">Developer</a> <a class="navbar-brand"
+				href="boardList" style="font-size: 1.5rem">게시판</a> <a
+				class="navbar-brand" href="chat.jsp?id=${id}"
+				style="font-size: 1.5rem">채팅</a> <a class="navbar-brand" href="#"
+				style="font-size: 1.5rem"></a> <a class="navbar-brand" href="#"
+				style="font-size: 1.5rem"></a> <a class="navbar-brand" href="#"
+				style="font-size: 1.5rem"></a> <a class="navbar-brand" href="#"
+				style="font-size: 1.5rem"></a> <a class="navbar-brand" href="#"
+				style="font-size: 1.5rem"></a>
 			<!-- 유저 세션 닉네임 -->
 			<a class="navbar-brand" href="detail" style="font-size: 1.5rem">
 				<%
@@ -65,7 +63,8 @@
 							aria-current="page" href="main.jsp?id=${id}">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="boardList">Boards</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" href="chat.jsp?id=${id}">Talk</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="chat.jsp?id=${id}">Talk</a></li>
 						<li class="nav-item"><a class="nav-link" id="logout"
 							href='logout'>Logout</a></li>
 					</ul>
@@ -79,6 +78,13 @@
 			</div>
 		</div>
 	</nav>
+
+	<div class="bg-video">
+		<video class="bg-video__content" autoplay muted loop>
+			<source src="./video/video.mp4" type="video/mp4" />
+			
+		</video>
+	</div>
 </body>
 <!-- JavaScript Bundle with Popper -->
 <script
