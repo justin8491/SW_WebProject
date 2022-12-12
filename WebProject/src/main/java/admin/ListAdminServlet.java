@@ -1,11 +1,8 @@
 package admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.List;
 
-import jakarta.servlet.DispatcherType;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

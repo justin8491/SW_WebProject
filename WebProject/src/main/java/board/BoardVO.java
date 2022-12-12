@@ -16,6 +16,7 @@ public class BoardVO {
 	private String title;
 	private String content;
 	private String id;
+	private int view;
 	private Date writeDate;
 	private String isExist;
 	

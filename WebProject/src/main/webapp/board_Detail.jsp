@@ -83,6 +83,7 @@
 		<div id="boardTable">
 			<div id="category">
 				<label>${board.category}</label>
+				<label>조회수 : ${board.view}</label>
 			</div>
 			<div id="title">
 				<h2>${board.title}</h2>

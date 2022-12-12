@@ -125,6 +125,7 @@ function createPrograssBar() {
 			<td colspan="2"><b>제목</b></td>
 			<td><b>작성자</b></td>
 			<td><b>작성일</b></td>
+			<td><b>조회수</b></td>
 		</tr>
 		<c:choose>
 			<c:when test="${ empty boardList}"></c:when>
@@ -138,6 +139,7 @@ function createPrograssBar() {
 						<td id="title"><a href="boardDetail?boardNO=${b.boardNO}">${b.title}</a></td>
 						<td id="id">${b.id}</td>
 						<td id="writeDate">${b.writeDate}</td>
+						<td id="view">${b.view}</td>
 					</tr>
 				</c:forEach>
 			</c:when>

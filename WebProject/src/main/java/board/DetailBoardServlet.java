@@ -37,15 +37,14 @@ public class DetailBoardServlet extends HttpServlet {
 			if (isLogon == true) {
 				
 				BoardDAO dao = new BoardDAO();
+				
+				dao.viewBoard(boardNO);
 				BoardVO board = dao.findByBNO(boardNO);
 
 				board = dao.findByBNO(boardNO);
 				request.setAttribute("board", board);
 				
-				System.out.println("Detail board : " + board.getBoardNO() + "\n"
-											   + board.getCategory() + "\n"
-											   + board.getTitle() + "\n"
-											   + board.getContent());	
+				
 				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("board_Detail.jsp"); 
 				dispatcher.forward(request, response);

@@ -39,7 +39,7 @@ public class BoardDAO {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO board = new BoardVO(rs.getInt("boardNO"), rs.getString("category"), rs.getString("title"),
-						rs.getString("content"), rs.getString("id"), rs.getDate("writeDate"), rs.getString("isExist"));
+						rs.getString("content"), rs.getString("id"), rs.getInt("view"), rs.getDate("writeDate"), rs.getString("isExist"));
 				System.out.println(board);
 				list.add(board);
 			}
@@ -117,6 +117,7 @@ public class BoardDAO {
 				board.setTitle(rs.getString("TITLE"));
 				board.setContent(rs.getString("CONTENT"));
 				board.setId(rs.getString("ID"));
+				board.setView(rs.getInt("VIEW"));
 				board.setIsExist(rs.getString("ISEXIST"));
 				board.setWriteDate(rs.getDate("WRITEDATE"));
 				rs.close();
@@ -178,8 +179,14 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				BoardVO board = new BoardVO(rs.getInt("boardNO"), rs.getString("category"), rs.getString("title"),
-						rs.getString("content"), rs.getString("id"), rs.getDate("writeDate"), rs.getString("isExist"));
+				BoardVO board = new BoardVO(rs.getInt("boardNO"), 
+						rs.getString("category"), 
+						rs.getString("title"),
+						rs.getString("content"), 
+						rs.getString("id"), 
+						rs.getInt("view"), 
+						rs.getDate("writeDate"), 
+						rs.getString("isExist"));
 				System.out.println(board);
 				list.add(board);
 			}
@@ -190,6 +197,29 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public void viewBoard(String BoardNO) {
+		try {
+			conn = dataFactory.getConnection();
+			// 자동 커밋 함수
+			conn.setAutoCommit(true);
+			String query = "update t_board set view = view + 1";
+			query += " where boardNO=?";
+			System.out.println("prepareStatememt: " + query);
+			pstmt = conn.prepareStatement(query);
+			// 멤버 정보 설정
+			pstmt.setString(1, BoardNO);
+			pstmt.executeUpdate();
+			pstmt.close();
+			// 자동 커밋 세팅
+			conn.commit();
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

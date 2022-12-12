@@ -84,13 +84,16 @@ body::-webkit-scrollbar {
 }
 
 #category {
-	width: 15rem;
-	height: 2rem;
+	width: 100%;
+    height: 2rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 #title {
 	width: 30rem;
 	height: 2rem;
+	margin-bottom: 1rem;
 }
 
 #icon {

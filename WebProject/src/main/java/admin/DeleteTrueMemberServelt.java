@@ -1,20 +1,15 @@
-package member;
+package admin;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import member.MemberDAO;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.jasper.tagplugins.jstl.core.Out;
 
 /**
  * Servlet implementation class LoginServlet
