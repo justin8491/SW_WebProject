@@ -14,7 +14,7 @@
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous" />
 
-<link rel="stylesheet" href="../css/chat.css" />
+<link rel="stylesheet" href="./css/chat.css" />
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap")
 	;
@@ -27,7 +27,7 @@
 			<a class="navbar-brand" href="main.jsp?id=${id}"
 				style="font-size: 2rem">Developer</a> <a class="navbar-brand"
 				href="boardList" style="font-size: 1.5rem">게시판</a> <a
-				class="navbar-brand" href="/WebProject/chat/chat.jsp" style="font-size: 1.5rem">채팅</a>
+				class="navbar-brand" href="chat.jsp?id=${id}" style="font-size: 1.5rem">채팅</a>
 			<a class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
@@ -58,7 +58,7 @@
 							aria-current="page" href="main.jsp?id=${id}">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="boardList">Boards</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" href="#">Talk</a></li>
+						<li class="nav-item"><a class="nav-link" href="chat.jsp?id=${id}">Talk</a></li>
 						<li class="nav-item"><a class="nav-link" id="logout"
 							href='logout'>Logout</a></li>
 					</ul>
@@ -93,7 +93,7 @@
 		
 		
 		InsertRoom.onclick = () => {
-			chatRoomList.innerHTML += ("<a href='/WebProject/chat/chat.jsp'>"+ roomName.value +"</a>");
+			chatRoomList.innerHTML += ("<a href='/WebProject/chat_Insert.jsp?id=${id}'>"+ roomName.value +"</a>");
 		}
 				
 				

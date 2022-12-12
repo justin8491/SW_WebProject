@@ -24,7 +24,7 @@ session = request.getSession();
 	;
 </style>
 </head>
-<body>
+<body style="background-color: rgba(0, 0, 0, 0.2);">
 	<nav class="navbar bg-light fixed-top"
 		style="padding-top: 0; padding-bottom: 0">
 		<div class="container-fluid"

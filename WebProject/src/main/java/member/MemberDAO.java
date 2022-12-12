@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -45,6 +46,7 @@ public class MemberDAO {
 						rs.getString("name"),
 						rs.getString("phone"),
 						rs.getString("email"),
+						rs.getString("accept"),
 						rs.getString("isexist"),
 						rs.getDate("createDate"));
 				System.out.println(member);
@@ -248,6 +250,7 @@ public class MemberDAO {
 		}
 		
 	}
+	
 	
 	
 }

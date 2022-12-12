@@ -15,14 +15,14 @@
 <link rel="stylesheet" href="./css/detail.css" />
 <script type="text/javascript" src="./js/detail.js" defer></script>
 </head>
-<body style="background-color: rgba(0, 0, 0, 0.2)">
+<body style="background-color: rgba(0, 0, 0, 0.2);">
 	<nav class="navbar bg-light fixed-top"
 		style="padding-top: 0; padding-bottom: 0">
 		<div class="container-fluid"
-			style="background-color: rgba(0, 0, 0, 0.7)">
+			style="background-color: #A4A4A4">
 			<a class="navbar-brand" href="main.jsp?id=${id}" style="font-size: 2rem">Developer</a>
 			<a class="navbar-brand" href="boardList" style="font-size: 1.5rem">게시판</a> <a
-				class="navbar-brand" href="chat.jsp" style="font-size: 1.5rem">채팅</a> <a
+				class="navbar-brand" href="chat.jsp?id=${id}" style="font-size: 1.5rem">채팅</a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
@@ -56,7 +56,7 @@
 							aria-current="page" href="main.jsp?id=${id}">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="boardList">Boards</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" href="#">Talk</a></li>
+						<li class="nav-item"><a class="nav-link" href="chat.jsp?id=${id}">Talk</a></li>
 						<li class="nav-item"><a class="nav-link" id="logout"
 							href='logout'>Logout</a></li>
 					</ul>
@@ -78,37 +78,23 @@
 				src="./images/info.jpg"></li>
 			<li id="id_box"><label>아이디 :</label>
 				<p>
-					<%
-					
-					out.print(session.getAttribute("id"));
-					%>
+					${id}
 				</p></li>
 			<li id="pwd_box"><label>비밀번호 :</label>
 				<p>
-					<%
-					out.print(session.getAttribute("pwd"));
-					%>
+					${pwd}
 				</p></li>
 			<li id="name_box"><label>이름 :</label>
 				<p>
-					<%
-					
-					out.print(session.getAttribute("name"));
-					%>
+					${name}
 				</p></li>
 			<li id="phone_box"><label>핸드폰 번호 :</label>
 				<p>
-					<%
-					
-					out.print(session.getAttribute("phone"));
-					%>
+					${phone}
 				</p></li>
 			<li id="email_box"><label>이메일 :</label>
 				<p>
-					<%
-					
-					out.print(session.getAttribute("email"));
-					%>
+					${email}
 				</p></li>
 			<li id="createdate_box"><label>회원 가입일 :</label>
 				<p>

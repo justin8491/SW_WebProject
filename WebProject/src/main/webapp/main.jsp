@@ -30,7 +30,7 @@
 			<a class="navbar-brand"
 				href="boardList" style="font-size: 1.5rem">게시판</a> 
 				<a class="navbar-brand"
-				href="/WebProject/chat/chat.jsp" style="font-size: 1.5rem">채팅</a> <a class="navbar-brand"
+				href="chat.jsp?id=${id}" style="font-size: 1.5rem">채팅</a> <a class="navbar-brand"
 				href="#" style="font-size: 1.5rem"></a> <a class="navbar-brand"
 				href="#" style="font-size: 1.5rem"></a> <a class="navbar-brand"
 				href="#" style="font-size: 1.5rem"></a> <a class="navbar-brand"
@@ -65,7 +65,7 @@
 							aria-current="page" href="main.jsp?id=${id}">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="boardList">Boards</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" href="#">Talk</a></li>
+						<li class="nav-item"><a class="nav-link" href="chat.jsp?id=${id}">Talk</a></li>
 						<li class="nav-item"><a class="nav-link" id="logout"
 							href='logout'>Logout</a></li>
 					</ul>

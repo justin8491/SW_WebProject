@@ -33,7 +33,7 @@ public class InsertMemberServelt extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		
+
 	}
 
 	/**
@@ -52,19 +52,21 @@ public class InsertMemberServelt extends HttpServlet {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		String name = request.getParameter("name");
-		
+
 		String phone1 = request.getParameter("phone1");
 		String phone2 = request.getParameter("phone2");
 		String phone3 = request.getParameter("phone3");
-		
+
 		String email1 = request.getParameter("email1");
 		String email2 = request.getParameter("email2");
-		
-		String accept = request.getParameter("accept");
-		
-		String phone = phone1 + "-" + phone2+ "-" + phone3;
+
+		String accept = (request.getParameter("accept") != null) ? "Y" : "N";
+
+		System.out.println(accept);
+
+		String phone = phone1 + "-" + phone2 + "-" + phone3;
 		String email = email1 + "@" + email2;
-		
+
 		System.out.println("====>" + id);
 		System.out.println("====>" + pwd);
 
@@ -79,16 +81,24 @@ public class InsertMemberServelt extends HttpServlet {
 
 		if (!(dao.isExisted(memberBean))) {
 			try {
-				dao.insertMember(new MemberBean(id, pwd, name, phone, email));
+				if (accept.equals("Y")) {
+					dao.insertMember(new MemberBean(id, pwd, name, phone, email, accept));
+				} else if(accept.equals("N")) {
+					System.out.println("else 실행");
+					dao.insertMember(new MemberBean(id, pwd, accept));
+				}
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 				System.out.println("에러 내용 : " + e.getMessage());
-				
+
+			} finally {
+				System.out.println("memberBean ==>" + memberBean);
+
+				response.sendRedirect("login.jsp");
 			}
+
 		}
-		System.out.println("memberBean ==>"+memberBean);
-		
-		response.sendRedirect("login.jsp");
 
 	}
 
@@ -100,5 +110,8 @@ public class InsertMemberServelt extends HttpServlet {
 			throws ServletException, IOException {
 		doHandle(request, response);
 	}
+	
+	
+	
 
 }
