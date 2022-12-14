@@ -102,7 +102,11 @@ defer>
 				</div>
 
 				<!-- Content -->
-				<textarea  name="content" id="editor"></textarea>
+				<textarea name="content" id="editor"></textarea>
+
+				<div id="file_box" style="margin-top: 1rem;">
+					<label>첨부 파일 : <input type="file" value="첨부파일" /></label>
+				</div>
 
 				<div id="btn_box">
 					<input type="submit" class="btn btn-primary" value="등록">
@@ -131,5 +135,25 @@ defer>
             .catch( error => {
                 console.error( error );
         } );
+        
+        
+        let boardInsert = document.querySelector("#boardInsert");
+        
+        boardInsert.addEventListener("submit", (e) => {
+        	   e.preventDefault();
+
+        	   fetch("<c:url value='/upload'/>", 
+        	      {
+        	         method: 'POST',
+        	          cache: 'no-cache',
+        	          body: new FormData(boardInsert)
+        	      })
+        	      .then(response => response.json())
+        	      .then(json => {
+        	         console.log(json.status);
+        	         if (json.status) {
+        	            alert("업로드 처리 성공");
+        	         }
+        	      });
 </script>
 </html>

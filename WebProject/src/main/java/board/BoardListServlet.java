@@ -1,20 +1,14 @@
 package board;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.List;
 
-import jakarta.servlet.DispatcherType;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import member.MemberBean;
-import member.MemberDAO;
 
 /**
  * Servlet implementation class ShowMember
@@ -30,9 +24,7 @@ public class BoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
-		String id = "";
 		BoardDAO dao = new BoardDAO();
-		HttpSession session = request.getSession();
 		
 		
 			List<BoardVO> boardList = dao.listboard();

@@ -26,8 +26,7 @@
 <body style="background-color: rgba(0, 0, 0, 0.2)">
 	<nav class="navbar bg-light fixed-top"
 		style="padding-top: 0; padding-bottom: 0">
-		<div class="container-fluid"
-			style="background-color: #A4A4A4">
+		<div class="container-fluid" style="background-color: #A4A4A4">
 			<a class="navbar-brand" href="main.jsp?id=${id}"
 				style="font-size: 2rem">Developer</a> <a class="navbar-brand"
 				href="boardList" style="font-size: 1.5rem">게시판</a> <a
@@ -82,8 +81,7 @@
 	<section class="container">
 		<div id="boardTable">
 			<div id="category">
-				<label>${board.category}</label>
-				<label>조회수 : ${board.view}</label>
+				<label>${board.category}</label> <label>조회수 : ${board.view}</label>
 			</div>
 			<div id="title">
 				<h2>${board.title}</h2>
@@ -96,7 +94,12 @@
 			</div>
 			<div id="hr"></div>
 			<div id="content">${board.content}</div>
+
+			
 		</div>
+
+
+
 		<div id="btn_box">
 			<button id="updateBtn"
 				onclick="location.href='boardUpdate?boardNO=${board.boardNO}'"
