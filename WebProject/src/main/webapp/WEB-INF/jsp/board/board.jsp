@@ -85,7 +85,7 @@ function createPrograssBar() {
 						</li>
 						<li class="nav-item"><a class="nav-link" href="chat.jsp?id=${id}">Talk</a></li>
 						<li class="nav-item"><a class="nav-link" id="logout"
-							href='logout'>Logout</a></li>
+							href='/WebProject/member/logout.do'>Logout</a></li>
 					</ul>
 					<form class="d-flex mt-3" role="search">
 						<input class="form-control me-2" type="search"
@@ -136,7 +136,7 @@ function createPrograssBar() {
 					<tr align="center">
 						<td id="category">${b.category}</td>
 						<td id="boardNO">${b.boardNO}</td>
-						<td id="title"><a href="boardDetail?boardNO=${b.boardNO}">${b.title}</a></td>
+						<td id="title"><a href="boardDetail.do?boardNO=${b.boardNO}">${b.title}</a></td>
 						<td id="id">${b.id}</td>
 						<td id="writeDate">${b.writeDate}</td>
 						<td id="view">${b.view}</td>

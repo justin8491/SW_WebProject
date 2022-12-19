@@ -16,9 +16,7 @@
 	crossorigin="anonymous" />
 
 <link rel="stylesheet" href="/WebProject/css/board_Insert.css" />
-<!-- <script type="text/javascript" src="/WebProject/js/board_Detail.js" -->
-defer>
-</script>
+
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap")
 	;
@@ -85,7 +83,8 @@ defer>
 
 	<section id="container">
 		<div id="boardTable">
-			<form id="boardInsert" action="boardInsert" method="post">
+			<form id="boardInsert" action="boardInsert" method="post"
+				enctype="multipart/form-data">
 				<!-- Category -->
 				<h1>글쓰기</h1>
 				<hr>
@@ -104,9 +103,27 @@ defer>
 				<!-- Content -->
 				<textarea name="content" id="editor"></textarea>
 
-				<div id="file_box" style="margin-top: 1rem;">
-					<label>첨부 파일 : <input type="file" value="첨부파일" /></label>
-				</div>
+				<!-- <div id="file_box" style="margin-top: 1rem;">
+					<label>첨부 파일 : <input type="file" value="첨부파일"
+						name="filename1" /></label>
+				</div> -->
+				<table>
+					<tbody>
+						<tr>
+							<th><label>첨부파일</label></th>
+							<td><input type="file" name="filename1" id="filename1" /></td>
+							<td><input type="button" value="추가" class="insertFile"></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr style="display: none">
+							<th><label>첨부파일</label></th>
+							<td><input type="file" name="filename1" id="filename1" /></td>
+							<td><input type="button" value="추가" class="insertFile"></td>
+							<td><input type="button" value="삭제" class="deleteFile"></td>
+						</tr>
+					</tfoot>
+				</table>
 
 				<div id="btn_box">
 					<input type="submit" class="btn btn-primary" value="등록">
@@ -135,25 +152,6 @@ defer>
             .catch( error => {
                 console.error( error );
         } );
-        
-        
-        let boardInsert = document.querySelector("#boardInsert");
-        
-        boardInsert.addEventListener("submit", (e) => {
-        	   e.preventDefault();
-
-        	   fetch("<c:url value='/upload'/>", 
-        	      {
-        	         method: 'POST',
-        	          cache: 'no-cache',
-        	          body: new FormData(boardInsert)
-        	      })
-        	      .then(response => response.json())
-        	      .then(json => {
-        	         console.log(json.status);
-        	         if (json.status) {
-        	            alert("업로드 처리 성공");
-        	         }
-        	      });
 </script>
+<script type="text/javascript" src="/WebProject/js/board_Insert.js" defer></script>
 </html>

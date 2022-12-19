@@ -25,8 +25,8 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	//게시판 목록
+
+	// 게시판 목록
 	public List<BoardVO> listboard() {
 		List<BoardVO> list = new ArrayList<>();
 		try {
@@ -39,7 +39,8 @@ public class BoardDAO {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO board = new BoardVO(rs.getInt("boardNO"), rs.getString("category"), rs.getString("title"),
-						rs.getString("content"), rs.getString("id"), rs.getInt("view"), rs.getDate("writeDate"), rs.getString("isExist"));
+						rs.getString("content"), rs.getString("id"), rs.getInt("view"), rs.getDate("writeDate"),
+						rs.getString("isExist"));
 				System.out.println(board);
 				list.add(board);
 			}
@@ -51,8 +52,8 @@ public class BoardDAO {
 		}
 		return list;
 	}
-	
-	//게시판 삭제
+
+	// 게시판 삭제
 	public void deleteBoard(String boardNO, String value) {
 		try {
 			conn = dataFactory.getConnection();
@@ -68,17 +69,18 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 			pstmt.close();
 			conn.commit();
-			conn.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	//게시판 생성
-	public void insertBoard(BoardVO board) throws SQLException {
+
+	// 게시판 생성
+	public int insertBoard(BoardVO board) throws SQLException {
 		try {
 			// connDB();
 			conn = dataFactory.getConnection();
+			conn.setAutoCommit(true);
 			String query = "insert into t_board (category, title, id, content) values (?,?,?,?)";
 			System.out.println("prepareStatememt: " + query);
 			pstmt = conn.prepareStatement(query);
@@ -87,19 +89,30 @@ public class BoardDAO {
 			pstmt.setString(3, board.getId());
 			pstmt.setString(4, board.getContent());
 			pstmt.executeUpdate();
+
+			pstmt.close();
+			
+			
+			query = "SELECT LAST_INSERT_ID()";
+			pstmt = conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			int boardNO = 0;
+			if (rs.next() ) {
+				boardNO = rs.getInt(1);
+			}
+			rs.close();
+			pstmt.close();
+			conn.commit();
+			
+			return boardNO;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw e; // 해당 함수를 호출한 부분으로 예외를 던진다
-		} finally {
-			try {
-				pstmt.close();
-				conn.close();
-			} catch (Exception e) {
-			}
 		}
+		return 0;
+		
 	}
-	
-	//게시판 기본키값 기준으로 데이터 가져오기
+
+	// 게시판 기본키값 기준으로 데이터 가져오기
 	public BoardVO findByBNO(String boardNO) {
 		try {
 			conn = dataFactory.getConnection();
@@ -135,8 +148,8 @@ public class BoardDAO {
 		}
 		return null;
 	}
-	
-	//게시판 업데이트
+
+	// 게시판 업데이트
 	public void updateBoard(BoardVO board) {
 		try {
 			conn = dataFactory.getConnection();
@@ -165,8 +178,8 @@ public class BoardDAO {
 		}
 
 	}
-	
-	//게시판 검색
+
+	// 게시판 검색
 	public List<BoardVO> listBoardValue(String selectValue, String searchValue) {
 		List<BoardVO> list = new ArrayList<>();
 		try {
@@ -179,13 +192,8 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				BoardVO board = new BoardVO(rs.getInt("boardNO"), 
-						rs.getString("category"), 
-						rs.getString("title"),
-						rs.getString("content"), 
-						rs.getString("id"), 
-						rs.getInt("view"), 
-						rs.getDate("writeDate"), 
+				BoardVO board = new BoardVO(rs.getInt("boardNO"), rs.getString("category"), rs.getString("title"),
+						rs.getString("content"), rs.getString("id"), rs.getInt("view"), rs.getDate("writeDate"),
 						rs.getString("isExist"));
 				System.out.println(board);
 				list.add(board);
@@ -219,7 +227,13 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
+	}
+	
+	public void close() throws Exception {
+		if (conn != null) {
+			conn.close();
+		}
 	}
 
 }

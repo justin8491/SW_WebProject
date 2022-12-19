@@ -94,20 +94,22 @@
 			</div>
 			<div id="hr"></div>
 			<div id="content">${board.content}</div>
+			<div id="file_box">
+				<a id="file_box_list"><input type="hidden" /></a>
+			</div>
 
-			
 		</div>
 
 
 
 		<div id="btn_box">
 			<button id="updateBtn"
-				onclick="location.href='boardUpdate?boardNO=${board.boardNO}'"
+				onclick="location.href='/WebProject/board/boardUpdate.do?boardNO=${board.boardNO}'"
 				type="button" class="btn btn-primary">게시글 수정</button>
 			<button id="deleteBtn"
-				onclick="location.href='boardDelete?boardNO=${board.boardNO}'"
+				onclick="location.href='/WebProject/board/boardDelete.do?boardNO=${board.boardNO}'"
 				type="button" class="btn btn-danger">게시글 삭제</button>
-			<button id="updateBtn" onclick="location.href='boardList'"
+			<button id="updateBtn" onclick="location.href='/WebProject/board/boardList.do'"
 				type="button" class="btn btn-success">리스트로 돌아가기</button>
 		</div>
 

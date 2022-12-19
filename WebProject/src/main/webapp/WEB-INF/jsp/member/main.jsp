@@ -14,7 +14,7 @@
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous" />
 
-<link rel="stylesheet" href="./css/main.css" />
+<link rel="stylesheet" href="<c:url value='/css/main.css'/>"/>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap")
 	;
@@ -26,7 +26,7 @@
 		<div class="container-fluid" style="background-color: #A4A4A4">
 			<a class="navbar-brand" href="main.jsp?id=${id}"
 				style="font-size: 2rem">Developer</a> <a class="navbar-brand"
-				href="boardList" style="font-size: 1.5rem">게시판</a> <a
+				href="/WebProject/board/boardList.do" style="font-size: 1.5rem">게시판</a> <a
 				class="navbar-brand" href="chat.jsp?id=${id}"
 				style="font-size: 1.5rem">채팅</a> <a class="navbar-brand" href="#"
 				style="font-size: 1.5rem"></a> <a class="navbar-brand" href="#"
@@ -66,7 +66,7 @@
 						<li class="nav-item"><a class="nav-link"
 							href="chat.jsp?id=${id}">Talk</a></li>
 						<li class="nav-item"><a class="nav-link" id="logout"
-							href='logout'>Logout</a></li>
+							href='/WebProject/member/logout.do'>Logout</a></li>
 					</ul>
 					<form class="d-flex mt-3" role="search">
 						<input class="form-control me-2" type="search"

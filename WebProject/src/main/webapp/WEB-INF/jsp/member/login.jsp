@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,18 +18,19 @@
 <script src="https://kit.fontawesome.com/d350cb3dc1.js"
 	crossorigin="anonymous"></script>
 <!-- Main Script -->
-<script type="text/javascript" src="./js/login.js" defer></script>
-<link rel="stylesheet" href="./css/login.css" />
+<script type="text/javascript" src="../../js/login.js" defer></script>
+<link rel="stylesheet" href="<c:url value='/css/login.css'/>" />
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap")
 	;
 
 a {
-	margin-top: 0; text-decoration : none;
+	margin-top: 0;
+	text-decoration: none;
 	color: black;
 	text-decoration: none;
 	padding-right: 1rem;
-	padding-right: 1rem;  
+	padding-right: 1rem;
 }
 
 #id_check {
@@ -46,7 +48,7 @@ a:hover {
 		<h1>Developer</h1>
 	</header>
 	<section class="container">
-		<form id="loginForm" method="post" action="login">
+		<form id="loginForm" method="post" action="/WebProject/member/login.do">
 			<div id="loginForm__container">
 				<div id="id_box" class="form-floating mb-3">
 					<input name="id" type="text" class="form-control"
