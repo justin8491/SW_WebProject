@@ -1,10 +1,7 @@
 package board;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,7 +12,6 @@ import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.json.JSONObject;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,17 +21,33 @@ public class BoardAction {
 	// 게시판 목록
 	public String boardList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
-			BoardDAO dao = new BoardDAO();
+			request.setCharacterEncoding("UTF-8");
+			String text = request.getParameter("text");
+			String pageNoStr = request.getParameter("pageNo");
+			BoardDAO boardDAO = new BoardDAO();
+			if ("".equals(pageNoStr) || null == pageNoStr)
+				pageNoStr = "1";
+			int pageNo = Integer.parseInt(pageNoStr);
+			int pageSize = 10;
+			int totalPageNo = boardDAO.totalPageNo(text);
+			int startPageNo = ((pageNo - 1) / pageSize) * pageSize + 1;
+			int endPageNo = startPageNo + pageSize - 1;
 
-			List<BoardVO> boardList = dao.listboard();
+			if (endPageNo > totalPageNo)
+				endPageNo = totalPageNo;
+
+			List<BoardVO> boardList = boardDAO.listboard(text, pageNo);
+
 			request.setAttribute("boardList", boardList);
-			dao.close();
+			request.setAttribute("totalPageNo", totalPageNo);
+			request.setAttribute("startPageNo", startPageNo);
+			request.setAttribute("endPageNo", endPageNo);
+			request.setAttribute("currentPageNo", pageNo);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// TODO: handle exception
 		}
+
 		return "/jsp/board/board.jsp";
 
 	}
@@ -51,16 +63,19 @@ public class BoardAction {
 		if (session != null) {
 			isLogon = (Boolean) session.getAttribute("isLogon");
 			if (isLogon == true) {
-				BoardDAO dao = new BoardDAO();
+				try {
+					BoardDAO dao = new BoardDAO();
 
-				dao.viewBoard(boardNO);
+					dao.viewBoard(boardNO);
 
-				BoardVO board = dao.findByBNO(boardNO);
+					BoardVO board = dao.findByBNO(boardNO);
 
-				board = dao.findByBNO(boardNO);
-				request.setAttribute("board", board);
+					board = dao.findByBNO(boardNO);
+					request.setAttribute("board", board);
 
-				return "/jsp/board/board_Detail.jsp?boardNO=" + boardNO;
+					return "/jsp/board/board_Detail.jsp?boardNO=" + boardNO;
+				} catch (Exception e) {
+				}
 
 			} else {
 				return "/jsp/member/login.jsp";
@@ -68,6 +83,7 @@ public class BoardAction {
 		} else {
 			return "/jsp/member/login.jsp";
 		}
+		return "/jsp/board/board_Detail.jsp?boardNO=" + boardNO;
 	}
 
 	// 게시물 삭제
@@ -78,15 +94,16 @@ public class BoardAction {
 			HttpSession session = request.getSession(false);
 			String boardNO = request.getParameter("boardNO");
 			BoardDAO dao = new BoardDAO();
-
+			String text = request.getParameter("text");
+			String pageNoStr = request.getParameter("pageNo");
+			int pageNo = Integer.parseInt(pageNoStr);
 			if (session != null) { // 세션 값 있을 때
 
 				try {
 					dao.deleteBoard(boardNO, "0");
 
-					List<BoardVO> boardList = dao.listboard();
+					List<BoardVO> boardList = dao.listboard(text, pageNo);
 					request.setAttribute("boardList", boardList);
-					dao.close();
 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -116,7 +133,7 @@ public class BoardAction {
 				BoardVO board = dao.findByBNO(boardNO);
 
 				request.setAttribute("board", board);
-
+				dao.close();
 				return "/jsp/board/board_Update.jsp?boardNO=" + boardNO;
 			} else {
 				return "/jsp/member/login.jsp";
@@ -162,13 +179,13 @@ public class BoardAction {
 		}
 		return "/jsp/board/board_Detail.jsp?boardNO=" + boardNO;
 	}
-	
+
 	public String boardInsertForm(HttpServletRequest request, HttpServletResponse response) {
 		return "/jsp/board/board_Insert.jsp";
 	}
-	
+
 	// 게시판 생성
-	public void boardInsert(HttpServletRequest request, HttpServletResponse response) {
+	public JSONObject boardInsert(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html;charset=utf-8");
@@ -227,11 +244,10 @@ public class BoardAction {
 						boardFileDAO.insertBoardFile(boardFile);
 					}
 					boardFileDAO.close();
-					dao.close();
 
 					jsonResult.put("status", true);
 					jsonResult.put("message", "글쓰기를 성공했습니다.");
-					jsonResult.put("url", "boardList");
+					jsonResult.put("url", "/WebProject/board/boardList.do");
 
 				} catch (SQLException e) {
 					jsonResult.put("status", false);
@@ -241,6 +257,7 @@ public class BoardAction {
 
 				out.println(jsonResult.toString());
 
+				return jsonResult;
 			} catch (SQLException e) {
 				e.printStackTrace();
 				System.out.println("에러 내용 : " + e.getMessage());
@@ -249,27 +266,29 @@ public class BoardAction {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		return null;
 
 	}
 
-	public void Search(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			response.setContentType("text/html;charset=utf-8");
-			String selectValue = request.getParameter("selectValue");
-			String searchValue = request.getParameter("searchValue");
-			BoardDAO dao = new BoardDAO();
-			System.out.println("selectValue : " + selectValue);
-			System.out.println("searchValue : " + searchValue);
-			List<BoardVO> boardList = dao.listBoardValue(selectValue, searchValue);
-
-			request.setAttribute("boardList", boardList);
-			RequestDispatcher dispatch = request.getRequestDispatcher("board.jsp");
-			dispatch.forward(request, response);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
+//	public String Search(HttpServletRequest request, HttpServletResponse response) {
+//		try {
+//			response.setContentType("text/html;charset=utf-8");
+//			String selectValue = request.getParameter("selectValue");
+//			String searchValue = request.getParameter("searchValue");
+//			BoardDAO dao = new BoardDAO();
+//			System.out.println("selectValue : " + selectValue);
+//			System.out.println("searchValue : " + searchValue);
+//			List<BoardVO> boardList = dao.listBoardValue(selectValue, searchValue);
+//
+//			request.setAttribute("boardList", boardList);
+//			dao.close();
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		return "/jsp/board/board.jsp";
+//	}
 }

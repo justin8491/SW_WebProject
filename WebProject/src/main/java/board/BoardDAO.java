@@ -21,41 +21,74 @@ public class BoardDAO {
 			Context context = new InitialContext();
 			Context envContext = (Context) context.lookup("java:/comp/env");
 			dataFactory = (DataSource) envContext.lookup("jdbc/pro05DB");
+			conn = dataFactory.getConnection();
+			conn.setAutoCommit(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	// 게시판 목록
-	public List<BoardVO> listboard() {
-		List<BoardVO> list = new ArrayList<>();
+	public int totalPageNo(String text) throws SQLException {
+		int totalPageSize = 0;
+		final int rowSize = 10;
 		try {
-			// connDB();
 			conn = dataFactory.getConnection();
-			String query = "select * from t_board ";
-			query += "WHERE isexist != '0' order by writeDate DESC";
-			System.out.println("prepareStatememt: " + query);
+			String query = "select ceil(COUNT(*) / ? ) from t_board where title like concat('%',?, '%') or content like concat('%', ?, '%')or Id like concat('%', ?, '%') ";
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rowSize);
+			pstmt.setString(2, text);
+			pstmt.setString(3, text);
+			pstmt.setString(4, text);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				totalPageSize = rs.getInt(1);
+			}
+			rs.close();
+			pstmt.close();
+			conn.commit();
+			return totalPageSize;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		conn.close();
+		return totalPageSize;
+	}
+
+	// 게시판 목록
+	public List<BoardVO> listboard(String text, int pageNo) {
+		List<BoardVO> list = new ArrayList<>();
+		final int rowSize = 10;
+		try {
+			System.out.println("검색어 : " + text);
+			text = text == null ? "" : text;
+			// connDB();
+			System.out.println("페이지 num : " + pageNo);
+			String query = "select * from t_board where title like concat('%', ?, '%') or content like concat('%', ?, '%')";
+			query += " or Id like concat('%', ?, '%') AND isExist != '0' ORDER BY parentNo, `boardNO` LIMIT ?, ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, text);
+			pstmt.setString(2, text);
+			pstmt.setString(3, text);
+			pstmt.setInt(4, (pageNo - 1) * rowSize);
+			pstmt.setInt(5, rowSize);
+
+			System.out.println("prepareStatememt: " + query);
+
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				BoardVO board = new BoardVO(
-						rs.getInt("boardNO"), 
-						rs.getString("parentNo"), 
-						rs.getString("category"), 
-						rs.getString("title"),
-						rs.getString("content"), 
-						rs.getString("id"),
-						rs.getDate("writeDate"),
-						rs.getInt("view"), 
-						rs.getInt("like_count"), 
-						rs.getInt("dis_like_count"), 
+				BoardVO board = new BoardVO(rs.getInt("boardNO"), rs.getString("parentNo"), rs.getString("category"),
+						rs.getString("title"), rs.getString("content"), rs.getString("id"), rs.getDate("writeDate"),
+						rs.getInt("view"), rs.getInt("like_count"), rs.getInt("dis_like_count"),
 						rs.getString("isExist"));
 				System.out.println(board);
 				list.add(board);
+
 			}
 			rs.close();
 			pstmt.close();
 			conn.close();
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -65,8 +98,7 @@ public class BoardDAO {
 	// 게시판 삭제
 	public void deleteBoard(String boardNO, String value) {
 		try {
-			conn = dataFactory.getConnection();
-			conn.setAutoCommit(true);
+
 			String query = "update t_board set isexist=? ";
 			query += " where boardNO=?";
 			System.out.println("prepareStatememt: " + query);
@@ -77,8 +109,7 @@ public class BoardDAO {
 			System.out.println("value : " + value);
 			pstmt.executeUpdate();
 			pstmt.close();
-			conn.commit();
-
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -88,8 +119,6 @@ public class BoardDAO {
 	public int insertBoard(BoardVO board) throws SQLException {
 		try {
 			// connDB();
-			conn = dataFactory.getConnection();
-			conn.setAutoCommit(true);
 			String query = "insert into t_board (category, title, id, content) values (?,?,?,?)";
 			System.out.println("prepareStatememt: " + query);
 			pstmt = conn.prepareStatement(query);
@@ -100,31 +129,28 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 
 			pstmt.close();
-			
-			
+
 			query = "SELECT LAST_INSERT_ID()";
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			int boardNO = 0;
-			if (rs.next() ) {
+			if (rs.next()) {
 				boardNO = rs.getInt(1);
 			}
 			rs.close();
 			pstmt.close();
-			conn.commit();
-			
+			conn.close();
 			return boardNO;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return 0;
-		
+
 	}
 
 	// 게시판 기본키값 기준으로 데이터 가져오기
 	public BoardVO findByBNO(String boardNO) {
 		try {
-			conn = dataFactory.getConnection();
 			String query = "select * from t_board";
 			query += " where boardNO=?";
 			System.out.println("prepareStatememt: " + query);
@@ -143,17 +169,13 @@ public class BoardDAO {
 				board.setIsExist(rs.getString("ISEXIST"));
 				board.setWriteDate(rs.getDate("WRITEDATE"));
 				rs.close();
+				pstmt.close();
+				conn.close();
 				return board;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("------------- 실패 사유 : " + e.getMessage());
-		} finally {
-			try {
-				pstmt.close();
-				conn.close();
-			} catch (Exception e2) {
-			}
 		}
 		return null;
 	}
@@ -161,9 +183,6 @@ public class BoardDAO {
 	// 게시판 업데이트
 	public void updateBoard(BoardVO board) {
 		try {
-			conn = dataFactory.getConnection();
-			// 자동 커밋 함수
-			conn.setAutoCommit(true);
 			String query = "update t_board set category=?, title=?, id=?, content=?";
 			query += " where boardNO=?";
 			System.out.println("prepareStatememt: " + query);
@@ -178,10 +197,7 @@ public class BoardDAO {
 
 			pstmt.executeUpdate();
 			pstmt.close();
-			// 자동 커밋 세팅
-			conn.commit();
 			conn.close();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -189,47 +205,34 @@ public class BoardDAO {
 	}
 
 	// 게시판 검색
-	public List<BoardVO> listBoardValue(String selectValue, String searchValue) {
-		List<BoardVO> list = new ArrayList<>();
-		try {
-			// connDB();
-			conn = dataFactory.getConnection();
-			String query = "select * from t_board ";
-			query += "WHERE isexist != '0' " + "AND " + selectValue + " LIKE '%" + searchValue + "%' "
-					+ "order by writeDate DESC";
-			System.out.println("prepareStatememt: " + query);
-			pstmt = conn.prepareStatement(query);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				BoardVO board = new BoardVO(
-						rs.getInt("boardNO"), 
-						rs.getString("parentNo"), 
-						rs.getString("category"), 
-						rs.getString("title"),
-						rs.getString("content"), 
-						rs.getString("id"),
-						rs.getDate("writeDate"),
-						rs.getInt("view"), 
-						rs.getInt("like_count"), 
-						rs.getInt("dis_like_count"), 
-						rs.getString("isExist"));
-				System.out.println(board);
-				list.add(board);
-			}
-			rs.close();
-			pstmt.close();
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
+//	public List<BoardVO> listBoardValue(String selectValue, String searchValue) {
+//		List<BoardVO> list = new ArrayList<>();
+//		try {
+//			String query = "select * from t_board ";
+//			query += "WHERE isexist != '0' " + "AND " + selectValue + " LIKE '%" + searchValue + "%' "
+//					+ "AND  ORDER BY parentNo, `boardNO` LIMIT ?, ?";
+//			System.out.println("prepareStatememt: " + query);
+//			pstmt = conn.prepareStatement(query);
+//			ResultSet rs = pstmt.executeQuery();
+//			while (rs.next()) {
+//				BoardVO board = new BoardVO(rs.getInt("boardNO"), rs.getString("parentNo"), rs.getString("category"),
+//						rs.getString("title"), rs.getString("content"), rs.getString("id"), rs.getDate("writeDate"),
+//						rs.getInt("view"), rs.getInt("like_count"), rs.getInt("dis_like_count"),
+//						rs.getString("isExist"));
+//				System.out.println(board);
+//				list.add(board);
+//			}
+//			rs.close();
+//			pstmt.close();
+//			conn.close();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return list;
+//	}
 
 	public void viewBoard(String BoardNO) {
 		try {
-			conn = dataFactory.getConnection();
-			// 자동 커밋 함수
-			conn.setAutoCommit(true);
 			String query = "update t_board set view = view + 1";
 			query += " where boardNO=?";
 			System.out.println("prepareStatememt: " + query);
@@ -247,9 +250,10 @@ public class BoardDAO {
 		}
 
 	}
-	
+
 	public void close() throws Exception {
 		if (conn != null) {
+			System.out.println("이걸 사용한 곳이 있나?");
 			conn.close();
 		}
 	}

@@ -17,19 +17,21 @@ insertFile.addEventListener("click", insertFileEventHandler);
 
 let boardInsert = document.querySelector("#boardInsert");
 boardInsert.addEventListener("submit", (e) => {
-        	e.preventDefault();
+	e.preventDefault();
 
-        	fetch("/WebProject/boardInsert",
-        		{
-        			method: 'POST',
-        			cache: 'no-cache',
-        			body: new FormData(boardInsert)
-        		})
-        		.then(response => response.json())
-        		.then(jsonResult => {
-        			alert(jsonResult.message);
-        			if (jsonResult.status == true) {
-        				location.href = jsonResult.url;
-        			}
-        		});
-        });
+	fetch("/WebProject/boardInsert",
+		{
+			method: 'POST',
+			cache: 'no-cache',
+			body: new FormData(boardInsert)
+		})
+		.then(response => response.json())
+		.then(jsonResult => {
+			alert(jsonResult.message);
+			if (jsonResult.status == true) {
+				location.href = jsonResult.url;
+			}
+		});
+});
+
+

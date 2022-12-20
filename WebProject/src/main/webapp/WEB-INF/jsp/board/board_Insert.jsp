@@ -83,7 +83,7 @@
 
 	<section id="container">
 		<div id="boardTable">
-			<form id="boardInsert" action="boardInsert" method="post"
+			<form id="boardInsert" action="/WebProject/board/boardInsert.do" method="post"
 				enctype="multipart/form-data">
 				<!-- Category -->
 				<h1>글쓰기</h1>
@@ -127,7 +127,7 @@
 
 				<div id="btn_box">
 					<input type="submit" class="btn btn-primary" value="등록">
-					<button id="cancel" onclick="location.href='boardList'"
+					<button id="cancel" onclick="location.href='/WebProject/board/boardList.do'"
 						type="button" class="btn btn-danger">취소</button>
 				</div>
 
