@@ -10,19 +10,21 @@ import lombok.Setter;
 @Setter
 @Getter
 public class BoardVO {
-	
+
 	private int boardNO;
+	private String parentNo;
 	private String category;
 	private String title;
 	private String content;
 	private String id;
-	private int view;
 	private Date writeDate;
+	private int view;
+	private int likeCount;
+	private int disLikeCount;
 	private String isExist;
-	
-	
-	public BoardVO() {}
 
+	public BoardVO() {
+	}
 
 	public BoardVO(String category, String title, String content, String id) {
 		super();
@@ -32,9 +34,4 @@ public class BoardVO {
 		this.id = id;
 	}
 
-	
-	
-	
-	
 }
-

@@ -4,7 +4,7 @@
 	xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="5.0">
-	
+
 	<display-name>WebProject</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
@@ -23,13 +23,16 @@
 			<param-name>actionNames</param-name>
 			<!-- ~내꺼~ -->
 			<param-value>
+			/member/main.do:member.MemberAction:mainForm
 			/member/loginForm.do:member.MemberAction:loginForm
 			/member/login.do:member.MemberAction:login
 			/member/logout.do:member.MemberAction:logout
 			/board/boardList.do:board.BoardAction:boardList
 			/board/boardDetail.do:board.BoardAction:boardDetail
 			/board/boardDelete.do:board.BoardAction:boardDelete
-			/board/boardUpdate.do:board.BoardAction:boardUpdate
+			/board/boardUpdateForm.do:board.BoardAction:boardUpdateForm
+			/board/boardUpdate.do:board.BoardAction:boardUpdateInsert
+			/board/boardInsertForm.do:board.BoardAction:boardInsertForm
 			/board/boardInsert.do:board.BoardAction:boardInsert
 		</param-value>
 		</init-param>

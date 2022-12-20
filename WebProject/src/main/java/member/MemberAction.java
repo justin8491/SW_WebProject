@@ -10,6 +10,12 @@ import jakarta.servlet.http.HttpSession;
 
 public class MemberAction {
 
+	public String mainForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		return "/jsp/member/main.jsp";
+
+	}
+
 	public String loginForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

@@ -24,7 +24,7 @@
 	<nav class="navbar bg-light fixed-top"
 		style="padding-top: 0; padding-bottom: 0">
 		<div class="container-fluid" style="background-color: #A4A4A4">
-			<a class="navbar-brand" href="main.jsp?id=${id}"
+			<a class="navbar-brand" href="/WebProject/member/mainForm.do?id=${id}"
 				style="font-size: 2rem">Developer</a> <a class="navbar-brand"
 				href="/WebProject/board/boardList.do" style="font-size: 1.5rem">게시판</a> <a
 				class="navbar-brand" href="chat.jsp?id=${id}"
@@ -36,10 +36,7 @@
 				style="font-size: 1.5rem"></a>
 			<!-- 유저 세션 닉네임 -->
 			<a class="navbar-brand" href="detail" style="font-size: 1.5rem">
-				<%
-				session = request.getSession();
-				out.print(session.getAttribute("id"));
-				%> 님
+				${id} 님
 			</a>
 
 			<button class="navbar-toggler" type="button"
@@ -61,7 +58,7 @@
 					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href="main.jsp?id=${id}">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="boardList">Boards</a>
+						<li class="nav-item"><a class="nav-link" href="/WebProject/board/boardList.do">Boards</a>
 						</li>
 						<li class="nav-item"><a class="nav-link"
 							href="chat.jsp?id=${id}">Talk</a></li>

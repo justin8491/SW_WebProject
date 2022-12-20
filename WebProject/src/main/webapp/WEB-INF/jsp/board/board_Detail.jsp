@@ -27,10 +27,11 @@
 	<nav class="navbar bg-light fixed-top"
 		style="padding-top: 0; padding-bottom: 0">
 		<div class="container-fluid" style="background-color: #A4A4A4">
-			<a class="navbar-brand" href="main.jsp?id=${id}"
+			<a class="navbar-brand"
+				href="/WebProject/member/mainForm.do?id=${id}"
 				style="font-size: 2rem">Developer</a> <a class="navbar-brand"
-				href="boardList" style="font-size: 1.5rem">게시판</a> <a
-				class="navbar-brand" href="chat.jsp?id=${id}"
+				href="/WebProject/board/boardList.do" style="font-size: 1.5rem">게시판</a>
+			<a class="navbar-brand" href="chat.jsp?id=${id}"
 				style="font-size: 1.5rem">채팅</a> <a class="navbar-brand" href="#"
 				style="font-size: 1.5rem"></a> <a class="navbar-brand" href="#"
 				style="font-size: 1.5rem"></a> <a class="navbar-brand" href="#"
@@ -60,12 +61,12 @@
 						class="navbar-nav justify-content-end flex-grow-1 pe-3">
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href="main.jsp?id=${id}">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="boardList">Boards</a>
-						</li>
+						<li class="nav-item"><a class="nav-link"
+							href="/WebProject/board/boardList.do">Boards</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="chat.jsp?id=${id}">Talk</a></li>
 						<li class="nav-item"><a class="nav-link" id="logout"
-							href='logout'>Logout</a></li>
+							href='/WebProject/member/logout.do'>Logout</a></li>
 					</ul>
 					<form class="d-flex mt-3" role="search">
 						<input class="form-control me-2" type="search"
@@ -104,12 +105,13 @@
 
 		<div id="btn_box">
 			<button id="updateBtn"
-				onclick="location.href='/WebProject/board/boardUpdate.do?boardNO=${board.boardNO}'"
+				onclick="location.href='/WebProject/board/boardUpdateForm.do?boardNO=${board.boardNO}'"
 				type="button" class="btn btn-primary">게시글 수정</button>
 			<button id="deleteBtn"
 				onclick="location.href='/WebProject/board/boardDelete.do?boardNO=${board.boardNO}'"
 				type="button" class="btn btn-danger">게시글 삭제</button>
-			<button id="updateBtn" onclick="location.href='/WebProject/board/boardList.do'"
+			<button id="updateBtn"
+				onclick="location.href='/WebProject/board/boardList.do'"
 				type="button" class="btn btn-success">리스트로 돌아가기</button>
 		</div>
 

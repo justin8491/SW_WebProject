@@ -48,9 +48,9 @@ function createPrograssBar() {
 		style="padding-top: 0; padding-bottom: 0">
 		<div class="container-fluid"
 			style="background-color: #A4A4A4" >
-			<a class="navbar-brand" href="main.jsp?id=${id}"
+			<a class="navbar-brand" href="/WebProject/member/mainForm.do?id=${id}"
 				style="font-size: 2rem">Developer</a> <a class="navbar-brand"
-				href="boardList" style="font-size: 1.5rem">게시판</a> <a
+				href="/WebProject/board/boardList.do" style="font-size: 1.5rem">게시판</a> <a
 				class="navbar-brand" href="chat.jsp?id=${id}" style="font-size: 1.5rem">채팅</a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
 				class="navbar-brand" href="#" style="font-size: 1.5rem"></a> <a
@@ -81,7 +81,7 @@ function createPrograssBar() {
 						class="navbar-nav justify-content-end flex-grow-1 pe-3">
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href="main.jsp?id=${id}">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="boardList">Boards</a>
+						<li class="nav-item"><a class="nav-link" href="/WebProject/board/boardList.do">Boards</a>
 						</li>
 						<li class="nav-item"><a class="nav-link" href="chat.jsp?id=${id}">Talk</a></li>
 						<li class="nav-item"><a class="nav-link" id="logout"
@@ -114,7 +114,7 @@ function createPrograssBar() {
 		</div>
 		<!-- 글쓰기 버튼 -->
 		<div>
-			<a href="board_Insert.jsp" class="btn btn-primary me-md-2"
+			<a href="/WebProject/board/insertForm.do" class="btn btn-primary me-md-2"
 				role="button" id="write-article">글쓰기</a>
 		</div>
 	</div><!-- 검색 글쓰기 End -->

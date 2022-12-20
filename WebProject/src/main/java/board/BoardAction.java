@@ -83,72 +83,90 @@ public class BoardAction {
 
 				try {
 					dao.deleteBoard(boardNO, "0");
+
+					List<BoardVO> boardList = dao.listboard();
+					request.setAttribute("boardList", boardList);
 					dao.close();
+
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+				return "/jsp/board/board.jsp";
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return "WebProject/board/boardList.do";
+		return "/jsp/board/board.jsp";
 	}
 
-	// 게시판 수정시 값 가지고 수정페이지 이동
-	public void boardUpdate(HttpServletRequest request, HttpServletResponse response) {
+	// 게시판 수정클릭시 정보값 가지고 수정페이지 이동
+	public String boardUpdateForm(HttpServletRequest request, HttpServletResponse response) {
 		try {
+
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html;charset=utf-8");
 
 			HttpSession session = request.getSession(false);
-			BoardDAO dao = new BoardDAO();
-			String boardNO = request.getParameter("boardNO");
 
-			BoardVO board = dao.findByBNO(boardNO);
+			if (session != null) {
+				BoardDAO dao = new BoardDAO();
+				String boardNO = request.getParameter("boardNO");
 
-			request.setAttribute("board", board);
+				BoardVO board = dao.findByBNO(boardNO);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("board_Update.jsp");
-			dispatcher.forward(request, response);
+				request.setAttribute("board", board);
+
+				return "/jsp/board/board_Update.jsp?boardNO=" + boardNO;
+			} else {
+				return "/jsp/member/login.jsp";
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
+
 	}
 
 	// 값 가져와서 DB에 값 업데이트
-	public void boardUpdateInsert(HttpServletRequest request, HttpServletResponse response) {
+	public String boardUpdateInsert(HttpServletRequest request, HttpServletResponse response) {
+
+		BoardDAO dao = new BoardDAO();
+		HttpSession session = request.getSession(false);
+		String boardNO = request.getParameter("boardNO");
+		String category = request.getParameter("category");
+		String title = request.getParameter("title");
+		String id = (String) session.getAttribute("id");
+		String content = request.getParameter("content");
+
 		try {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html;charset=utf-8");
-			HttpSession session = request.getSession(false);
-			BoardDAO dao = new BoardDAO();
-			String boardNO = request.getParameter("boardNO");
+
 			System.out.println(boardNO);
 			BoardVO board = dao.findByBNO(boardNO);
+			if (session != null) {
+				board.setCategory(category);
+				board.setTitle(title);
+				board.setId(id);
+				board.setContent(content);
 
-			String category = request.getParameter("category");
-			String title = request.getParameter("title");
-			String id = (String) session.getAttribute("id");
-			String content = request.getParameter("content");
+				dao.updateBoard(board);
 
-			board.setCategory(category);
-			board.setTitle(title);
-			board.setId(id);
-			board.setContent(content);
+				request.setAttribute("board", board);
+				return "/jsp/board/board_Detail.jsp?boardNO=" + boardNO;
+			}
 
-			dao.updateBoard(board);
-
-			request.setAttribute("board", board);
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("board_Detail.jsp");
-			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
+		return "/jsp/board/board_Detail.jsp?boardNO=" + boardNO;
 	}
-
+	
+	public String boardInsertForm(HttpServletRequest request, HttpServletResponse response) {
+		return "/jsp/board/board_Insert.jsp";
+	}
+	
 	// 게시판 생성
 	public void boardInsert(HttpServletRequest request, HttpServletResponse response) {
 		try {

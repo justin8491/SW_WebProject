@@ -38,8 +38,17 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				BoardVO board = new BoardVO(rs.getInt("boardNO"), rs.getString("category"), rs.getString("title"),
-						rs.getString("content"), rs.getString("id"), rs.getInt("view"), rs.getDate("writeDate"),
+				BoardVO board = new BoardVO(
+						rs.getInt("boardNO"), 
+						rs.getString("parentNo"), 
+						rs.getString("category"), 
+						rs.getString("title"),
+						rs.getString("content"), 
+						rs.getString("id"),
+						rs.getDate("writeDate"),
+						rs.getInt("view"), 
+						rs.getInt("like_count"), 
+						rs.getInt("dis_like_count"), 
 						rs.getString("isExist"));
 				System.out.println(board);
 				list.add(board);
@@ -192,8 +201,17 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				BoardVO board = new BoardVO(rs.getInt("boardNO"), rs.getString("category"), rs.getString("title"),
-						rs.getString("content"), rs.getString("id"), rs.getInt("view"), rs.getDate("writeDate"),
+				BoardVO board = new BoardVO(
+						rs.getInt("boardNO"), 
+						rs.getString("parentNo"), 
+						rs.getString("category"), 
+						rs.getString("title"),
+						rs.getString("content"), 
+						rs.getString("id"),
+						rs.getDate("writeDate"),
+						rs.getInt("view"), 
+						rs.getInt("like_count"), 
+						rs.getInt("dis_like_count"), 
 						rs.getString("isExist"));
 				System.out.println(board);
 				list.add(board);
