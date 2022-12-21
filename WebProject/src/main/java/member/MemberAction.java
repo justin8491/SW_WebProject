@@ -12,7 +12,8 @@ public class MemberAction {
 
 	public String mainForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		return "/jsp/member/main.jsp";
+			String id = request.getParameter("id");
+		return "/jsp/member/main.jsp?id=" + id;
 
 	}
 

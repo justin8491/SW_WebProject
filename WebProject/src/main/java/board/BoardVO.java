@@ -33,5 +33,14 @@ public class BoardVO {
 		this.content = content;
 		this.id = id;
 	}
+	
+	public BoardVO(String parentNo, String category, String title, String content, String id) {
+		super();
+		this.parentNo = parentNo;
+		this.category = category;
+		this.title = title;
+		this.content = content;
+		this.id = id;
+	}
 
 }

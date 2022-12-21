@@ -16,15 +16,15 @@ function insertFileEventHandler() {
 insertFile.addEventListener("click", insertFileEventHandler);
 
 
-let boardInsert = document.querySelector("#boardInsert");
-boardInsert.addEventListener("submit", (e) => {
+let boardForm = document.querySelector("#boardForm");
+boardForm.addEventListener("submit", (e) => {
 	e.preventDefault();
 
-	fetch("/WebProject/board/boardInsert.do",
+	fetch("/WebProject/board/boardReply.do",
 		{
 			method: 'POST',
 			cache: 'no-cache',
-			body: new FormData(boardInsert)
+			body: new FormData(boardForm)
 		})
 		.then(response => response.json())
 		.then(jsonResult => {
@@ -34,5 +34,6 @@ boardInsert.addEventListener("submit", (e) => {
 			}
 		});
 });
+
 
 

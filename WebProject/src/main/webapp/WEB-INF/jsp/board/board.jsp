@@ -162,30 +162,33 @@
 		</c:forEach>
 	</table>
 	<!-- 페이징 Start -->
-	<c:if test="${currentPageNo != 1}">
-		<a href="javascript:movePage(1)"> &lt;&lt; </a>
+	<div class="page_box">
+		<c:if test="${currentPageNo != 1}">
+			<a href="javascript:movePage(1)"> &lt;&lt; </a>
 		&nbsp;
 		<a href="javascript:movePage(${currentPageNo-1})"> &lt; </a>
 		&nbsp;
 	</c:if>
 
-	<c:forEach var="pageNo" begin="${startPageNo}" end="${endPageNo}">
-		<c:choose>
-			<c:when test="${currentPageNo == pageNo}">
-				<span style="font-size: 1.3rem;">${pageNo}</span>
-			</c:when>
-			<c:otherwise>
-				<a href="javascript:movePage(${pageNo})">${pageNo}</a>
-			</c:otherwise>
-		</c:choose>
+		<c:forEach var="pageNo" begin="${startPageNo}" end="${endPageNo}">
+			<c:choose>
+				<c:when test="${currentPageNo == pageNo}">
+					<span style="font-size: 1.7rem;">${pageNo}</span>
+				</c:when>
+				<c:otherwise>
+					<a href="javascript:movePage(${pageNo})">${pageNo}</a>
+				</c:otherwise>
+			</c:choose>
 		&nbsp;
 	</c:forEach>
 
-	<c:if test="${currentPageNo != totalPageNo}">
-		<a href="javascript:movePage(${currentPageNo+1})"> &gt; </a>
+		<c:if test="${currentPageNo != totalPageNo}">
+			<a href="javascript:movePage(${currentPageNo+1})"> &gt; </a>
 		&nbsp;
 		<a href="javascript:movePage(${totalPageNo})"> &gt;&gt; </a>
-	</c:if>
+		</c:if>
+	</div>
+
 </body>
 <!-- JavaScript Bundle with Popper -->
 <script

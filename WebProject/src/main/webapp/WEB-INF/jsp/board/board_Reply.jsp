@@ -15,13 +15,16 @@
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous" />
 
-<link rel="stylesheet" href="/WebProject/css/board_Detail.css" />
-<script type="text/javascript" src="/WebProject/js/board_Detail.js"
-	defer></script>
+<link rel="stylesheet" href="/WebProject/css/board_Reply.css" />
+
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap")
 	;
 </style>
+<script
+	src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
+<script
+	src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/translations/ko.js"></script>
 </head>
 <body style="background-color: rgba(0, 0, 0, 0.2)">
 	<nav class="navbar bg-light fixed-top"
@@ -79,46 +82,85 @@
 		</div>
 	</nav>
 
-	<section class="container">
+	<section id="container">
 		<div id="boardTable">
-			<div id="category">
-				<label>${board.category}</label> <label>조회수 : ${board.view}</label>
-			</div>
-			<div id="title">
-				<h2>${board.title}</h2>
-			</div>
-			<div id="id">
-				<i id="icon" class="fa fa-user fs-2 bc-gray"></i>
-				<div id="writerWithDate">
-					<label> ${board.id}</label> <span> ${board.writeDate}</span>
+
+			<section class="container">
+				<div id="boardTable">
+					<div id="category">
+						<label>${board.category}</label> <label>조회수 :
+							${board.view}</label>
+					</div>
+					<div id="title">
+						<h2>${board.title}</h2>
+					</div>
+					<div id="id">
+						<i id="icon" class="fa fa-user fs-2 bc-gray"></i>
+						<div id="writerWithDate">
+							<label> ${board.id}</label> <span> ${board.writeDate}</span>
+						</div>
+					</div>
+					<div id="hr"></div>
+					<div id="content">${board.content}</div>
+					<div id="file_box">
+						<a id="file_box_list"><input type="hidden" /></a>
+					</div>
+
 				</div>
-			</div>
-			<div id="hr"></div>
-			<div id="content">${board.content}</div>
-			<div id="file_box">
-				<a id="file_box_list"><input type="hidden" /></a>
-			</div>
+			</section>
 
+			<form id="boardForm" name="boardForm"
+				action="/WebProject/board/boardReply.do" method="post"
+				enctype="multipart/form-data">
+				<!-- Category -->
+				<h1>답변글</h1>
+				<hr>
+				<div id="categoryOrtitle">
+					<input type="hidden" name="parentNo" id="parentNo" value="${board.boardNO}">
+					<!-- Title -->
+					<input type="text" name="title" id="title"> <select
+						name="category" id="category">
+						<option value="선택">카테고리 선택</option>
+						<option value="완료">완료</option>
+						<option value="미완료">미완료</option>
+						<option value="보류">보류</option>
+					</select>
+				</div>
+
+				<!-- Content -->
+				<textarea name="content" id="editor"></textarea>
+
+				<!-- <div id="file_box" style="margin-top: 1rem;">
+					<label>첨부 파일 : <input type="file" value="첨부파일"
+						name="filename1" /></label>
+				</div> -->
+				<table>
+					<tbody>
+						<tr>
+							<th><label>첨부파일</label></th>
+							<td><input type="file" name="filename1" id="filename1" /></td>
+							<td><input type="button" value="추가" class="insertFile"></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr style="display: none">
+							<th><label>첨부파일</label></th>
+							<td><input type="file" name="filename1" id="filename1" /></td>
+							<td><input type="button" value="추가" class="insertFile"></td>
+							<td><input type="button" value="삭제" class="deleteFile"></td>
+						</tr>
+					</tfoot>
+				</table>
+
+				<div id="btn_box">
+					<input type="submit" class="btn btn-primary" value="등록">
+					<button id="cancel"
+						onclick="location.href='/WebProject/board/boardList.do'"
+						type="button" class="btn btn-danger">취소</button>
+				</div>
+
+			</form>
 		</div>
-
-
-
-		<div id="btn_box">
-			<button id="updateBtn"
-				onclick="location.href='/WebProject/board/boardUpdateForm.do?boardNO=${board.boardNO}'"
-				type="button" class="btn btn-primary">게시글 수정</button>
-			<button id="deleteBtn"
-				onclick="location.href='/WebProject/board/boardDelete.do?boardNO=${board.boardNO}'"
-				type="button" class="btn btn-danger">게시글 삭제</button>
-			<button id="updateBtn"
-				onclick="location.href='/WebProject/board/boardList.do'"
-				type="button" class="btn btn-success">리스트로 돌아가기</button>
-			<button id="updateBtn"
-				onclick="location.href='/WebProject/board/boardReplyForm.do?boardNO=${board.boardNO}'"
-				type="button" class="btn btn-primary">답글</button>
-		</div>
-
-
 	</section>
 
 
@@ -132,4 +174,13 @@
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/d350cb3dc1.js"
 	crossorigin="anonymous"></script>
+<script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ), {language : "ko"} )
+            .catch( error => {
+                console.error( error );
+        } );
+        
+</script>
+<script type="text/javascript" src="/WebProject/js/board_Reply.js" defer></script>
 </html>

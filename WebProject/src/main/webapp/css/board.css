@@ -8,6 +8,11 @@
 	font-family: 'Jua', sans-serif;
 }
 
+a {
+	text-decoration: none;
+	list-style: none;
+}
+
 body {
 	background-color: #ccc;
 	margin-bottom: 5rem;
@@ -40,7 +45,7 @@ body::-webkit-scrollbar {
 
 #tableHeader {
 	display: flex;
-	margin-top: 8rem;
+	margin-top: 5rem;
 	margin-right: 13%;
 	justify-content: space-between;
 	align-items: center;
@@ -70,7 +75,7 @@ body::-webkit-scrollbar {
 	width: 2.5rem;
 	border: 0;
 	border-radius: 15px;
-	text-align:center;
+	text-align: center;
 	outline: none;
 	border: 0;
 	background-color: white;
@@ -183,4 +188,15 @@ body::-webkit-scrollbar {
 
 #writeDate {
 	width: 20rem;
+}
+
+.page_box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.5rem;
+}
+
+.page_box a {
+	padding: 6px 10px 6px 10px;
 }

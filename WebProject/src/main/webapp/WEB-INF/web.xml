@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="https://jakarta.ee/xml/ns/jakartaee"
-	xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="5.0">
-
-	<display-name>WebProject</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
-	<servlet>
-		<description>ActionServlet</description>
-		<display-name>action</display-name>
-		<servlet-name>action</servlet-name>
-		<servlet-class>action.ActionServlet</servlet-class>
-		<init-param>
-			<param-name>actionNames</param-name>
-			<!-- ~내꺼~ -->
-			<param-value>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="5.0">
+  <display-name>WebProject</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description>ActionServlet</description>
+    <display-name>action</display-name>
+    <servlet-name>action</servlet-name>
+    <servlet-class>action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>actionNames</param-name>
+      <param-value>
 			/member/main.do:member.MemberAction:mainForm
 			/member/loginForm.do:member.MemberAction:loginForm
 			/member/login.do:member.MemberAction:login
@@ -34,11 +28,16 @@
 			/board/boardUpdate.do:board.BoardAction:boardUpdateInsert
 			/board/boardInsertForm.do:board.BoardAction:boardInsertForm
 			/board/boardInsert.do:board.BoardAction:boardInsert
+			/board/boardReplyForm.do:board.BoardAction:boardReplyForm
+			/board/boardReply.do:board.BoardAction:boardReply
 		</param-value>
-		</init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>action</servlet-name>
-		<url-pattern>*.do</url-pattern>
-	</servlet-mapping>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  <listener>
+    <listener-class>server.ServletListener</listener-class>
+  </listener>
 </web-app>
