@@ -285,14 +285,14 @@ public class BoardAction {
 		return "/jsp/board/board_Reply.jsp";
 
 	}
-	
+
 	public JSONObject boardReply(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html;charset=utf-8");
 			HttpSession session = request.getSession(false);
 			String category = request.getParameter("category");
-			
+
 			String title = request.getParameter("title");
 
 			String id = (String) session.getAttribute("id");
@@ -314,12 +314,13 @@ public class BoardAction {
 				PrintWriter out = response.getWriter();
 				Map<String, List<FileItem>> mapItems = upload.parseParameterMap(request);
 
-				//BoardFileDAO boardFileDAO = new BoardFileDAO();
+				// BoardFileDAO boardFileDAO = new BoardFileDAO();
 				JSONObject jsonResult = new JSONObject();
 
 				try {
 					BoardDAO dao = new BoardDAO();
-					String parentNo = new String(mapItems.get("parentNo").get(0).getString().getBytes("ISO-8859-1"), "UTF-8");
+					String parentNo = new String(mapItems.get("parentNo").get(0).getString().getBytes("ISO-8859-1"),
+							"UTF-8");
 					category = new String(mapItems.get("category").get(0).getString().getBytes("ISO-8859-1"), "UTF-8");
 					title = new String(mapItems.get("title").get(0).getString().getBytes("ISO-8859-1"), "UTF-8");
 					id = (String) session.getAttribute("id");
@@ -369,7 +370,7 @@ public class BoardAction {
 			// TODO: handle exception
 		}
 		return null;
-		
+
 	}
 
 }

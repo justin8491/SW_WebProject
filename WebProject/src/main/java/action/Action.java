@@ -9,3 +9,4 @@ import jakarta.servlet.http.HttpServletResponse;
 public interface Action {
 	void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException; 
 }
+
